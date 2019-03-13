@@ -15,7 +15,7 @@ trait LoginControllerTrait
 
     public function index()
     {
-        $usersManager = ModelLocator::get('users');
+        $usersManager = $this->getModelManager();
         $this->getView()->set('headerTitle', $usersManager->getLabel('login-title'));
 
         $loginForm = $this->_getUser()->getForm('login');
@@ -39,5 +39,13 @@ trait LoginControllerTrait
             $this->_getUser()->getManager()->compileURL('login')
         );
         $this->getView()->Meta()->prependTitle($this->getModelManager()->getLabel('login-title'));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function generateModelName()
+    {
+        return get_class($this->_getUser()->getManager());
     }
 }
