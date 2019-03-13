@@ -3,7 +3,6 @@
 namespace ByTIC\Hello\Modules\Frontend\Controllers\Traits;
 
 use Nip\Controllers\Traits\AbstractControllerTrait;
-use Nip\Records\Locator\ModelLocator;
 
 /**
  * Trait LoginControllerTrait

@@ -1,10 +1,10 @@
 <?php
 
-namespace ByTIC\Hello\Modules\Frontend\Controllers\Traits;
+namespace ByTIC\Hello\Modules\AbstractModule\Forms\Users;
 
 /**
  * Trait LoginFormTrait
- * @package ByTIC\Hello\Modules\Frontend\Controllers\Traits
+ * @package ByTIC\Hello\Modules\AbstractModule\Forms\Users
  */
 trait LoginFormTrait
 {
