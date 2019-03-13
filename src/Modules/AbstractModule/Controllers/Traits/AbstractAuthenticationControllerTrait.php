@@ -67,7 +67,8 @@ trait AbstractAuthenticationControllerTrait
      */
     protected function getGenericRedirectURL()
     {
-        return $this->Url()->assemble('frontend.logged_in');
+        $module = $this->getRequest()->getModuleName();
+        return $this->Url()->assemble($module . '.logged_in');
     }
 
     /**

@@ -8,7 +8,7 @@ namespace ByTIC\Hello\Library\View\Traits;
  *
  * @method addPath($path, $namespace)
  */
-trait HasAdminBaseFolderTrait
+trait HasHelloBaseFolderTrait
 {
     /**
      * @deprecated Use addAdminBaseNamespacePath()
