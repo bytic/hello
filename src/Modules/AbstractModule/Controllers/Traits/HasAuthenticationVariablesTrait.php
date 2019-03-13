@@ -2,8 +2,7 @@
 
 namespace ByTIC\Hello\Modules\AbstractModule\Controllers\Traits;
 
-use Nip\Request;
-use Nip\View\ViewInterface;
+use Nip\Controllers\Traits\AbstractControllerTrait;
 
 /**
  * Trait HasAuthenticationVariablesTrait
@@ -11,6 +10,8 @@ use Nip\View\ViewInterface;
  */
 trait HasAuthenticationVariablesTrait
 {
+    use AbstractControllerTrait;
+
     protected $authenticationVariable = null;
     protected $authenticationValues = null;
 
@@ -141,14 +142,4 @@ trait HasAuthenticationVariablesTrait
         }
         return false;
     }
-
-    /**
-     * @return ViewInterface
-     */
-    protected abstract function getView();
-
-    /**
-     * @return Request
-     */
-    protected abstract function getRequest();
 }
