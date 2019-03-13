@@ -2,6 +2,9 @@
 
 namespace ByTIC\Hello\Modules\AbstractModule\Controllers\Traits;
 
+use Nip\Request;
+use Nip\View\ViewInterface;
+
 /**
  * Trait HasAuthenticationVariablesTrait
  * @package KM42\Hello\Modules\AbstractModule\Controllers\Traits
@@ -53,7 +56,9 @@ trait HasAuthenticationVariablesTrait
         if (method_exists($this, 'generateAuthenticationVarRedirect')) {
             $redirect = $this->generateAuthenticationVarRedirect();
         } else {
-            $redirect = $this->getRequest()->query->has('redirect') ? $this->getRequest()->query->get('redirect') : null;
+            $redirect = $this->getRequest()->query->has('redirect')
+                ? $this->getRequest()->query->get('redirect')
+                : null;
         }
         return $this->isEncodedVariable($redirect) ? $redirect : $this->encodeVariable($redirect);
     }
@@ -136,4 +141,14 @@ trait HasAuthenticationVariablesTrait
         }
         return false;
     }
+
+    /**
+     * @return ViewInterface
+     */
+    protected abstract function getView();
+
+    /**
+     * @return Request
+     */
+    protected abstract function getRequest();
 }
