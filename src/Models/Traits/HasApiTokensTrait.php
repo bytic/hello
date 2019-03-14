@@ -1,7 +1,13 @@
 <?php
 
-namespace ByTIC\Auth\Models\Traits;
+namespace ByTIC\Hello\Models\Traits;
 
+use Nip\Container\Container;
+
+/**
+ * Trait HasApiTokensTrait
+ * @package ByTIC\Hello\Models\Traits
+ */
 trait HasApiTokensTrait
 {
     /**
@@ -24,14 +30,14 @@ trait HasApiTokensTrait
     /**
      * Create a new personal access token for the user.
      *
-     * @param  string  $name
-     * @param  array  $scopes
+     * @param string $name
+     * @param array $scopes
      * @return \Laravel\Passport\PersonalAccessTokenResult
      */
     public function createToken($name, array $scopes = [])
     {
-        return Container::getInstance()->make(PersonalAccessTokenFactory::class)->make(
-            $this->getKey(), $name, $scopes
-        );
+        return Container::getInstance()
+            ->make(PersonalAccessTokenFactory::class)
+            ->make($this->getKey(), $name, $scopes);
     }
 }

@@ -17,7 +17,8 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "ByTIC\\Hello\\Tests\\": "tests/src"
+      "ByTIC\\Hello\\Tests\\": "tests/src",
+      "ByTIC\\Hello\\Tests\\Fixtures\\": "tests/fixtures"
     }
   },
   "require": {
@@ -31,6 +32,7 @@
     "league/oauth2-server": "^7.0"
   },
   "require-dev": {
+    "robmorgan/phinx": "^0.10",
     "phpunit/phpunit": "^7.2",
     "mockery/mockery": "^1.1"
   }
