@@ -4,8 +4,9 @@ namespace ByTIC\Hello;
 
 use ByTIC\Hello\Utility\CryptHelper;
 use League\OAuth2\Server\AuthorizationServer;
-use Nip\Container\ServiceProviders\Providers\AbstractSignatureServiceProvider;
 use League\OAuth2\Server\CryptKey;
+use League\OAuth2\Server\Grant\AuthCodeGrant;
+use Nip\Container\ServiceProviders\Providers\AbstractSignatureServiceProvider;
 
 /**
  * Class HelloServiceProvider
@@ -24,7 +25,7 @@ class HelloServiceProvider extends AbstractSignatureServiceProvider
 
     protected function registerAuthorizationServer()
     {
-        $this->getContainer()->share('mvc.modules', function () {
+        $this->getContainer()->share('hello.server', function () {
             return $this->createAuthorizationServer();
         });
     }
@@ -35,7 +36,25 @@ class HelloServiceProvider extends AbstractSignatureServiceProvider
     protected function createAuthorizationServer()
     {
         $server = $this->getContainer()->get(AuthorizationServer::class);
+
+        $server->enableGrantType(
+            $this->makeAuthCodeGrant(), Passport::tokensExpireIn()
+        );
         return $server;
+    }
+
+    /**
+     * Build the Auth Code grant instance.
+     *
+     * @return \League\OAuth2\Server\Grant\AuthCodeGrant
+     */
+    protected function buildAuthCodeGrant()
+    {
+        return new AuthCodeGrant(
+            $this->getContainer()->make(Bridge\AuthCodeRepository::class),
+            $this->getContainer()->make(Bridge\RefreshTokenRepository::class),
+            new DateInterval('PT10M')
+        );
     }
 
     /**

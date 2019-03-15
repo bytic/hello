@@ -102,6 +102,9 @@
       <path value="$PROJECT_DIR$/vendor/cakephp/core" />
       <path value="$PROJECT_DIR$/vendor/cakephp/log" />
       <path value="$PROJECT_DIR$/vendor/cakephp/database" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/vendor/symfony/psr-http-message-bridge" />
+      <path value="$PROJECT_DIR$/vendor/zendframework/zend-diactoros" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7" />
