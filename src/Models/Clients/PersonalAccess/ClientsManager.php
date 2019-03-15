@@ -19,19 +19,30 @@ class ClientsManager
      */
     public static function get()
     {
-        if (static::$client != null) {
+        if (static::$client !== null) {
             return static::$client;
         }
 
-        if (ClientsHelper::$personalAccessClientId) {
-            return ModelsHelper::clients()->findOne(ClientsHelper::$personalAccessClientId);
+        if (ClientsHelper::$personalAccessClientId > 0) {
+            $client = ModelsHelper::clients()->findOne(ClientsHelper::$personalAccessClientId);
+            if ($client instanceof Client) {
+                static::$client = $client;
+                return $client;
+            }
         }
         $clients = ModelsHelper::clients()->findByRedirect(ClientsHelper::PERSONAL_ACCESS_REDIRECT_URI);
         if (count($clients) === 1) {
+            static::$client = $clients->current();
             return $clients->current();
         }
 
-        return static::create();
+        static::$client = static::create();
+        return static::$client;
+    }
+
+    public static function resetClient()
+    {
+        static::$client = null;
     }
 
     /**
