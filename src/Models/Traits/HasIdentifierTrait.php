@@ -2,34 +2,13 @@
 
 namespace ByTIC\Hello\Models\Traits;
 
+use League\OAuth2\Server\Entities\Traits\EntityTrait;
+
 /**
  * Trait HasIdentifierTrait
  * @package ByTIC\Hello\Models\Traits
  */
 trait HasIdentifierTrait
 {
-    /**
-     * @var string
-     */
-    protected $identifier;
-
-    /**
-     * Get the token's identifier.
-     *
-     * @return string
-     */
-    public function getIdentifier(): string
-    {
-        return $this->identifier;
-    }
-
-    /**
-     * Set the token's identifier.
-     *
-     * @param string $identifier
-     */
-    public function setIdentifier($identifier)
-    {
-        $this->identifier = $identifier;
-    }
+    use EntityTrait;
 }

@@ -3,14 +3,22 @@
 namespace ByTIC\Hello\Models\Clients;
 
 use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
+use Nip\Records\Collections\Collection;
+use Nip\Utility\Traits\SingletonTrait;
 
 /**
  * Class Tokens
  * @package ByTIC\Hello\Models\Clients
+ *
+ * @method Client getNew()
  * @method Client findOneByIdentifier(string $clientIdentifier)
+ * @method Client findOne(string $clientIdentifier)
+ *
+ * @method Client[]|Collection findByRedirect(string $uri)
  */
 class Clients extends \Nip\Records\RecordManager implements ClientRepositoryInterface
 {
+    use SingletonTrait;
 
     /**
      * {@inheritdoc}

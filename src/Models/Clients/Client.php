@@ -2,8 +2,6 @@
 
 namespace ByTIC\Hello\Models\Clients;
 
-use ByTIC\Hello\Models\Traits\HasIdentifierTrait;
-use ByTIC\Hello\Utility\GrantsHelper;
 use ByTIC\Hello\Utility\RandomHelper;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Entities\Traits\ClientTrait;
@@ -18,26 +16,20 @@ class Client extends \Nip\Records\Record implements ClientEntityInterface
     use ClientTrait, EntityTrait;
     use Traits\ClientHasGrantsTrait;
     use Traits\ClientHasSecretTrait;
-    use HasIdentifierTrait;
+    use Traits\ClientHasRedirectTrait;
 
     public function __construct()
     {
-//        $this->setRandomId(RandomHelper::generateToken());
-//        $this->setSecret(RandomHelper::generateToken());
+        $this->setIdentifier(RandomHelper::generateIdentifier());
+        $this->setSecret(RandomHelper::generateToken());
     }
 
     /**
-     * {@inheritdoc}
+     * @param mixed $name
      */
-    public function setAllowedGrantTypes(array $grantTypes)
+    public function setName($name)
     {
-        $this->allowedGrantTypes = $grantTypes;
-    }
-    /**
-     * {@inheritdoc}
-     */
-    public function getAllowedGrantTypes()
-    {
-        return $this->allowedGrantTypes;
+        $this->name = $name;
+        parent::setName($name);
     }
 }
