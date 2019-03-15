@@ -2,6 +2,7 @@
 
 namespace ByTIC\Hello\Models\Traits;
 
+use ByTIC\Hello\Models\Clients\PersonalAccess\TokenFactory;
 use Nip\Container\Container;
 
 /**
@@ -37,7 +38,7 @@ trait HasApiTokensTrait
     public function createToken($name, array $scopes = [])
     {
         return Container::getInstance()
-            ->make(PersonalAccessTokenFactory::class)
-            ->make($this->getKey(), $name, $scopes);
+            ->get(TokenFactory::class)
+            ->make($this->getPrimaryKey(), $name, $scopes);
     }
 }

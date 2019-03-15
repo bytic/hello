@@ -12,4 +12,12 @@ use Nip\Records\Record;
 class User extends Record
 {
     use HasApiTokensTrait;
+
+    /**
+     * @inheritdoc
+     */
+    public function getPrimaryKey()
+    {
+        return 1;
+    }
 }

@@ -2,9 +2,10 @@
 
 namespace ByTIC\Hello\Tests\Models\Traits;
 
+use ByTIC\Hello\Models\Clients\PersonalAccess\TokenFactory;
+use ByTIC\Hello\Tests\AbstractTest;
 use ByTIC\Hello\Tests\Fixtures\Models\Users\User;
 use Mockery as m;
-use ByTIC\Hello\Tests\AbstractTest;
 use Nip\Container\Container;
 
 /**
@@ -21,13 +22,14 @@ class HasApiTokensTest extends AbstractTest
 
     public function testTokenCanBeCreated()
     {
-//        $container = new Container;
-//        Container::setInstance($container);
-//
-//        $container->share(PersonalAccessTokenFactory::class, $factory = m::mock());
-//        $factory->shouldReceive('make')->once()->with(1, 'name', ['scopes']);
-//
-//        $user = new User();
-//        $user->createToken('name', ['scopes']);
+        $container = new Container;
+        Container::setInstance($container);
+
+        $factory = m::mock();
+        $factory->shouldReceive('make')->once()->with(1, 'name', ['scopes']);
+        $container->share(TokenFactory::class, $factory);
+
+        $user = new User();
+        $user->createToken('name', ['scopes']);
     }
 }
