@@ -3,6 +3,7 @@
 namespace ByTIC\Hello;
 
 use ByTIC\Hello\Utility\CryptHelper;
+use ByTIC\Hello\Utility\ModelsHelper;
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\CryptKey;
 use League\OAuth2\Server\Grant\AuthCodeGrant;
@@ -23,7 +24,7 @@ class HelloServiceProvider extends AbstractSignatureServiceProvider
         $this->registerAuthorizationServer();
     }
 
-    protected function registerAuthorizationServer()
+    public function registerAuthorizationServer()
     {
         $this->getContainer()->share('hello.server', function () {
             return $this->createAuthorizationServer();
@@ -35,11 +36,16 @@ class HelloServiceProvider extends AbstractSignatureServiceProvider
      */
     protected function createAuthorizationServer()
     {
-        $server = $this->getContainer()->get(AuthorizationServer::class);
-
-        $server->enableGrantType(
-            $this->makeAuthCodeGrant(), Passport::tokensExpireIn()
+        $server = new AuthorizationServer(
+            ModelsHelper::clients(),
+            ModelsHelper::accessTokens(),
+            ModelsHelper::scopes(),
+            $this->makeCryptKey('private')
         );
+
+//        $server->enableGrantType(
+//            $this->makeAuthCodeGrant(), Passport::tokensExpireIn()
+//        );
         return $server;
     }
 
@@ -73,10 +79,19 @@ class HelloServiceProvider extends AbstractSignatureServiceProvider
      */
     protected function makeCryptKey($type)
     {
-        $key = str_replace('\\n', "\n", $this->getContainer()->get('config')->get('hello.' . $type . '_key'));
-        if (!$key) {
-            $key = 'file://' . CryptHelper::keyPath('oauth-' . $type . '.key');
+        $configKey = null;
+        if ($this->getContainer()->has('config')) {
+            $configKey = $this->getContainer()->get('config')->get('hello.' . $type . '_key');
         }
+        $key = str_replace('\\n', "\n", $configKey);
+        if (!$key) {
+            $path = CryptHelper::keyPath('oauth-' . $type . '.key');
+            if (!file_exists($path)) {
+                CryptHelper::generateKeys(dirname($path));
+            }
+            $key = 'file://' . $path;
+        }
+
         return new CryptKey($key, null, false);
     }
 }

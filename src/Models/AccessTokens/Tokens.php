@@ -1,6 +1,6 @@
 <?php
 
-namespace ByTIC\Auth\Models\Tokens;
+namespace ByTIC\Hello\Models\AccessTokens;
 
 /**
  * Class Tokens

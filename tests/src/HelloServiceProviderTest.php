@@ -3,6 +3,7 @@
 namespace ByTIC\Hello\Tests;
 
 use ByTIC\Hello\HelloServiceProvider;
+use League\OAuth2\Server\AuthorizationServer;
 use Mockery as m;
 use Nip\Config\Config;
 use Nip\Container\Container;
@@ -13,6 +14,16 @@ use Nip\Container\Container;
  */
 class HelloServiceProviderTest extends AbstractTest
 {
+
+    public function testRegisterAuthorizationServer()
+    {
+        $provider = new HelloServiceProvider();
+        $provider->setContainer(new Container());
+        $provider->registerAuthorizationServer();
+
+        self::assertInstanceOf(AuthorizationServer::class, $provider->getContainer()->get('hello.server'));
+    }
+
     public function testCanUseCryptoKeysFromConfig()
     {
         $config = m::mock(Config::class, function ($config) {

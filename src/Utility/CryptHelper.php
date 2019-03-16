@@ -2,6 +2,8 @@
 
 namespace ByTIC\Hello\Utility;
 
+use phpseclib\Crypt\RSA;
+
 /**
  * Class Helper
  * @package ByTIC\Hello\Utility
@@ -18,7 +20,7 @@ class CryptHelper
     /**
      * Set the storage location of the encryption keys.
      *
-     * @param  string  $path
+     * @param  string $path
      * @return void
      */
     public static function loadKeysFrom($path)
@@ -35,8 +37,35 @@ class CryptHelper
     public static function keyPath($file)
     {
         $file = ltrim($file, '/\\');
-        return static::$keyPath
-            ? rtrim(static::$keyPath, '/\\') . DIRECTORY_SEPARATOR . $file
-            : storage_path($file);
+        if (static::$keyPath) {
+            return rtrim(static::$keyPath, '/\\') . DIRECTORY_SEPARATOR . $file;
+        }
+        if (function_exists('storage_path')) {
+            return storage_path($file);
+        }
+        return PathHelper::keys($file);
+    }
+
+    /**
+     * @param null $basePath
+     * @return bool
+     */
+    public static function generateKeys($basePath = null)
+    {
+        $privateKeyName = 'oauth-private.key';
+        $publicKeyName = 'oauth-public.key';
+        $privateKeyPath = $basePath ? $basePath . DIRECTORY_SEPARATOR . $privateKeyName : static::keyPath($privateKeyName);
+        $publicKeyPath = $basePath ? $basePath . DIRECTORY_SEPARATOR . $publicKeyName : static::keyPath($publicKeyName);
+
+        $rsa = new RSA();
+        $keys = $rsa->createKey(2048, false);
+
+        file_put_contents($privateKeyPath, $keys['privatekey']);
+        file_put_contents($publicKeyPath, $keys['publickey']);
+
+        $result = chmod($privateKeyPath, 0600);
+        $result = $result && chmod($publicKeyPath, 0600);
+
+        return $result;
     }
 }

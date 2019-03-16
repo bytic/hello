@@ -1,12 +1,12 @@
 <?php
 
-namespace ByTIC\Auth\Models\Tokens;
+namespace ByTIC\Hello\Models\AccessTokens;
 
 use League\OAuth2\Server\Entities\Traits\TokenEntityTrait;
 
 /**
  * Class Token
- * @package ByTIC\Auth\Models\Tokens
+ * @package ByTIC\Auth\Models\AccessTokens
  */
 class Token extends \Nip\Records\Record
 {

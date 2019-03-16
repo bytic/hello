@@ -30,6 +30,7 @@
     "hybridauth/hybridauth": "^v2.12",
     "firebase/php-jwt": "~3.0|~4.0|~5.0",
     "league/oauth2-server": "^7.0",
+    "phpseclib/phpseclib": "^2.0",
     "symfony/psr-http-message-bridge": "~1.0",
     "zendframework/zend-diactoros": "~1.0|~2.0"
   },
