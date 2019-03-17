@@ -3,6 +3,7 @@
 namespace ByTIC\Hello\Tests\Models\Clients\Traits;
 
 use ByTIC\Hello\Models\Clients\Client;
+use ByTIC\Hello\Models\Clients\Clients;
 use ByTIC\Hello\Tests\AbstractTest;
 use ByTIC\Hello\Utility\GrantsHelper;
 
@@ -45,5 +46,20 @@ class ClientHasGrantsTraitTest extends AbstractTest
 
         $client->addGrants(GrantsHelper::GRANT_TYPE_AUTH_CODE);
         self::assertTrue($client->hasGrant(GrantsHelper::GRANT_TYPE_AUTH_CODE));
+    }
+
+    public function testGrantsSave()
+    {
+        /** @var Clients $clients */
+        $clients = \Mockery::mock(Clients::class)->makePartial();
+        $clients->shouldReceive('getFields')->andReturn(['id', 'identifier', 'grants']);
+        $clients->shouldReceive('getPrimaryKey')->andReturn('id');
+        $clients->shouldReceive('getModel')->andReturn(Client::class);
+
+        $client = $clients->getNew();
+        $client->addGrants([GrantsHelper::GRANT_TYPE_PERSONAL_ACCESS, GrantsHelper::GRANT_TYPE_AUTH_CODE]);
+
+        $data = $clients->getQueryModelData($client);
+        self::assertArrayHasKey('grants', $data);
     }
 }

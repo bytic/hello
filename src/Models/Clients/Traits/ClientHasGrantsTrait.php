@@ -27,7 +27,7 @@ trait ClientHasGrantsTrait
     public function addGrants($grants)
     {
         $grants = is_array($grants) ? $grants : [$grants];
-        $this->grants = array_unique(array_merge($this->grants, $grants));
+        $this->setGrants(array_unique(array_merge($this->grants, $grants)));
     }
 
     /**
@@ -39,6 +39,7 @@ trait ClientHasGrantsTrait
         if (($key = array_search($grants, $this->grants)) !== false) {
             unset($this->grants[$key]);
         }
+        $this->updateGrantsDbField();
     }
 
     /**
@@ -55,6 +56,7 @@ trait ClientHasGrantsTrait
     public function setGrants(array $grants)
     {
         $this->grants = $grants;
+        $this->updateGrantsDbField();
     }
 
     /**
@@ -74,5 +76,10 @@ trait ClientHasGrantsTrait
     public function hasGrant(string $grant): bool
     {
         return array_search($grant, $this->grants) !== false;
+    }
+
+    protected function updateGrantsDbField()
+    {
+        $this->_data['grants'] = implode(',', $this->getGrants());
     }
 }
