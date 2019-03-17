@@ -29,6 +29,14 @@ class HelloServiceProvider extends AbstractSignatureServiceProvider
         $this->registerAuthorizationServer();
     }
 
+    public function registerRepositories()
+    {
+        $repositories = ModelsHelper::repositories();
+        foreach ($repositories as $interface => $class) {
+            $this->getContainer()->alias($class, $interface);
+        }
+    }
+
     public function registerAuthorizationServer()
     {
         $this->getContainer()->alias('hello.server', AuthorizationServer::class);
@@ -182,13 +190,5 @@ class HelloServiceProvider extends AbstractSignatureServiceProvider
         }
 
         return new CryptKey($key, null, false);
-    }
-
-    protected function registerRepositories()
-    {
-        $repositories = ModelsHelper::repositories();
-        foreach ($repositories as $interface => $class) {
-            $this->getContainer()->alias($class, $interface);
-        }
     }
 }

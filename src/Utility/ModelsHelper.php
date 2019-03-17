@@ -3,6 +3,7 @@
 namespace ByTIC\Hello\Utility;
 
 use ByTIC\Hello\Models\AccessTokens\Tokens;
+use ByTIC\Hello\Models\AuthCodes\AuthCodes;
 use ByTIC\Hello\Models\Clients\Clients;
 use ByTIC\Hello\Models\Scopes\Scopes;
 use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
@@ -25,7 +26,7 @@ class ModelsHelper
         ClientRepositoryInterface::class => Clients::class,
         RefreshTokenRepositoryInterface::class => null,
         ScopeRepositoryInterface::class => Scopes::class,
-        AuthCodeRepositoryInterface::class => AuthCodeRepositoryInterface::class,
+        AuthCodeRepositoryInterface::class => AuthCodes::class,
         UserRepositoryInterface::class => null,
     ];
 
