@@ -5,6 +5,7 @@ namespace ByTIC\Hello\Utility;
 use ByTIC\Hello\Models\AccessTokens\Tokens;
 use ByTIC\Hello\Models\AuthCodes\AuthCodes;
 use ByTIC\Hello\Models\Clients\Clients;
+use ByTIC\Hello\Models\RefreshTokens\RefreshTokens;
 use ByTIC\Hello\Models\Scopes\Scopes;
 use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
 use League\OAuth2\Server\Repositories\AuthCodeRepositoryInterface;
@@ -24,7 +25,7 @@ class ModelsHelper
     protected static $repositories = [
         AccessTokenRepositoryInterface::class => Tokens::class,
         ClientRepositoryInterface::class => Clients::class,
-        RefreshTokenRepositoryInterface::class => null,
+        RefreshTokenRepositoryInterface::class => RefreshTokens::class,
         ScopeRepositoryInterface::class => Scopes::class,
         AuthCodeRepositoryInterface::class => AuthCodes::class,
         UserRepositoryInterface::class => null,

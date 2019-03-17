@@ -36,7 +36,7 @@ class HelloServiceProviderTest extends AbstractTest
             AccessTokenRepositoryInterface::class,
             AuthCodeRepositoryInterface::class,
             ClientRepositoryInterface::class,
-//            RefreshTokenRepositoryInterface::class,
+            RefreshTokenRepositoryInterface::class,
             ScopeRepositoryInterface::class,
 //            UserRepositoryInterface::class,
         ];
