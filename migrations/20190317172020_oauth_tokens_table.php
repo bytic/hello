@@ -1,11 +1,9 @@
 <?php
 
+
 use Phinx\Migration\AbstractMigration;
 
-/**
- * Class OauthClientsTable
- */
-class OauthClientsTable extends AbstractMigration
+class OauthTokensTable extends AbstractMigration
 {
     /**
      * Change Method.
@@ -34,18 +32,20 @@ class OauthClientsTable extends AbstractMigration
      */
     public function change()
     {
-        $table = $this->table('oauth_clients');
+        $table = $this->table('oauth_access_tokens');
         $table
-            ->addColumn('identifier', 'string', ['limit' => 255])
+            ->addColumn('identifier', 'string', ['limit' => 100])
+            ->addColumn('user_id', 'int', [])
+            ->addColumn('client_id', 'int', [])
             ->addColumn('name', 'string', [])
-            ->addColumn('secret', 'string', ['limit' => 100])
-            ->addColumn('redirect', 'string', [])
-            ->addColumn('grant_types', 'enum', [
-                'values' => ['authorization_code', 'personal_access', 'password', 'password']
-            ])
+            ->addColumn('scopes', 'text', [])
+            ->addColumn('revoked', 'boolean', [])
+            ->addColumn('expires_at', 'datetime', ['null' => true])
             ->addColumn('created', 'datetime')
             ->addColumn('updated', 'datetime', ['null' => true])
             ->addIndex(['identifier'], ['unique' => true])
+            ->addIndex(['user_id'], [])
+            ->addIndex(['client_id'], [])
             ->create();
     }
 }
