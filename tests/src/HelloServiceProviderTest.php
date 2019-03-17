@@ -3,6 +3,7 @@
 namespace ByTIC\Hello\Tests;
 
 use ByTIC\Hello\HelloServiceProvider;
+use ByTIC\Hello\Utility\ConfigHelper;
 use League\OAuth2\Server\AuthorizationServer;
 use Mockery as m;
 use Nip\Config\Config;
@@ -26,15 +27,15 @@ class HelloServiceProviderTest extends AbstractTest
 
     public function testCanUseCryptoKeysFromConfig()
     {
-        $config = m::mock(Config::class, function ($config) {
-            $config->shouldReceive('get')
-                ->with('hello.private_key')
-                ->andReturn('-----BEGIN RSA PRIVATE KEY-----\nconfig\n-----END RSA PRIVATE KEY-----');
-        });
+        $config = m::mock(ConfigHelper::class)->makePartial();
+        $config->shouldReceive('get')
+//            ->with('private_key', null)
+            ->andReturn('-----BEGIN RSA PRIVATE KEY-----\nconfig\n-----END RSA PRIVATE KEY-----');
 
         $provider = new HelloServiceProvider();
         $provider->setContainer(new Container());
-        $provider->getContainer()->set('config', $config);
+
+        ConfigHelper::setConfig($config);
 
         // Call protected makeCryptKey method
         $cryptKey = (function () {

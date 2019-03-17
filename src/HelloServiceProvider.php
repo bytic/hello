@@ -25,8 +25,8 @@ class HelloServiceProvider extends AbstractSignatureServiceProvider
      */
     public function register()
     {
-        $this->registerAuthorizationServer();
         $this->registerRepositories();
+        $this->registerAuthorizationServer();
     }
 
     public function registerAuthorizationServer()
@@ -79,30 +79,71 @@ class HelloServiceProvider extends AbstractSignatureServiceProvider
      */
     protected function registerGrants(AuthorizationServer $server)
     {
+        $grantTypes = ConfigHelper::get('grant_types', []);
+        foreach ($grantTypes as $type => $class) {
+            $method = 'makeGrant' . $type;
+            $this->{$method}($server, $class);
+        }
+    }
+
+    /**
+     * @param AuthorizationServer $server
+     * @param string $class
+     */
+    protected function makeGrantAuthCode(AuthorizationServer $server, string $class)
+    {
         $this->makeGrant(
             $server,
-            ConfigHelper::get('grant_types.AuthCode', null),
+            $class,
             [
                 $this->getContainer()->get(AuthCodeRepositoryInterface::class),
                 $this->getContainer()->get(RefreshTokenRepositoryInterface::class),
                 ConfigHelper::get('token_ttl')
             ]
         );
+    }
 
-        $this->makeGrant($server, ConfigHelper::get('grant_types.RefreshToken', null), [
+    /**
+     * @param AuthorizationServer $server
+     * @param string $class
+     */
+    protected function makeGrantRefreshToken(AuthorizationServer $server, string $class)
+    {
+        $this->makeGrant($server, $class, [
             $this->getContainer()->get(RefreshTokenRepositoryInterface::class)
         ]);
+    }
 
-        $this->makeGrant($server, ConfigHelper::get('grant_types.Password', null), [
+    /**
+     * @param AuthorizationServer $server
+     * @param string $class
+     */
+    protected function makeGrantPassword(AuthorizationServer $server, string $class)
+    {
+        $this->makeGrant($server, $class, [
             $this->getContainer()->get(UserRepositoryInterface::class),
             $this->getContainer()->get(RefreshTokenRepositoryInterface::class)
         ]);
+    }
 
-        $this->makeGrant($server, ConfigHelper::get('grant_types.Implicit', null), [
+    /**
+     * @param AuthorizationServer $server
+     * @param string $class
+     */
+    protected function makeGrantImplicit(AuthorizationServer $server, string $class)
+    {
+        $this->makeGrant($server, $class, [
             ConfigHelper::get('token_ttl')
         ]);
+    }
 
-        $this->makeGrant($server, ConfigHelper::get('grant_types.ClientCredentials', null), []);
+    /**
+     * @param AuthorizationServer $server
+     * @param string $class
+     */
+    protected function makeGrantClientCredentials(AuthorizationServer $server, string $class)
+    {
+        $this->makeGrant($server, $class, []);
     }
 
     /**
@@ -129,9 +170,8 @@ class HelloServiceProvider extends AbstractSignatureServiceProvider
     protected function makeCryptKey($type)
     {
         $configKey = null;
-        if ($this->getContainer()->has('config')) {
-            $configKey = ConfigHelper::get($type . '_key');
-        }
+        $configKey = ConfigHelper::get($type . '_key');
+
         $key = str_replace('\\n', "\n", $configKey);
         if (!$key) {
             $path = CryptHelper::keyPath('oauth-' . $type . '.key');

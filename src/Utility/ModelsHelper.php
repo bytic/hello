@@ -25,7 +25,7 @@ class ModelsHelper
         ClientRepositoryInterface::class => Clients::class,
         RefreshTokenRepositoryInterface::class => null,
         ScopeRepositoryInterface::class => Scopes::class,
-        AuthCodeRepositoryInterface::class => null,
+        AuthCodeRepositoryInterface::class => AuthCodeRepositoryInterface::class,
         UserRepositoryInterface::class => null,
     ];
 

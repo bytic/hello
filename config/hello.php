@@ -58,10 +58,10 @@ return [
     */
     'grant_types' => [
         'AuthCode' => AuthCodeGrant::class,
-        'RefreshToken' => RefreshTokenGrant::class,
-        'Password' => PasswordGrant::class,
-        'Implicit' => ImplicitGrant::class,
-        'ClientCredentials' => ClientCredentialsGrant::class,
+//        'RefreshToken' => RefreshTokenGrant::class,
+//        'Password' => PasswordGrant::class,
+//        'Implicit' => ImplicitGrant::class,
+//        'ClientCredentials' => ClientCredentialsGrant::class,
     ],
 
     /*
