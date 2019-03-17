@@ -2,11 +2,15 @@
 
 namespace ByTIC\Hello;
 
+use ByTIC\Hello\Utility\ConfigHelper;
 use ByTIC\Hello\Utility\CryptHelper;
 use ByTIC\Hello\Utility\ModelsHelper;
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\CryptKey;
 use League\OAuth2\Server\Grant\AuthCodeGrant;
+use League\OAuth2\Server\Repositories\AuthCodeRepositoryInterface;
+use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
+use League\OAuth2\Server\Repositories\UserRepositoryInterface;
 use Nip\Container\ServiceProviders\Providers\AbstractSignatureServiceProvider;
 
 /**
@@ -22,13 +26,36 @@ class HelloServiceProvider extends AbstractSignatureServiceProvider
     public function register()
     {
         $this->registerAuthorizationServer();
+        $this->registerRepositories();
     }
 
     public function registerAuthorizationServer()
     {
+        $this->getContainer()->alias('hello.server', AuthorizationServer::class);
+
         $this->getContainer()->share('hello.server', function () {
-            return $this->createAuthorizationServer();
+            $server = $this->createAuthorizationServer();
+            $this->registerGrants($server);
+            return $server;
         });
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function provides()
+    {
+        $return = [
+            'hello.server',
+            AuthorizationServer::class
+        ];
+
+        $repositories = ModelsHelper::repositories();
+        foreach ($repositories as $interface => $class) {
+            $return[] = $interface;
+        }
+
+        return $return;
     }
 
     /**
@@ -44,32 +71,53 @@ class HelloServiceProvider extends AbstractSignatureServiceProvider
             $this->makeCryptKey('public')
         );
 
-//        $server->enableGrantType(
-//            $this->makeAuthCodeGrant(), Passport::tokensExpireIn()
-//        );
         return $server;
     }
 
     /**
-     * Build the Auth Code grant instance.
-     *
-     * @return \League\OAuth2\Server\Grant\AuthCodeGrant
+     * @param AuthorizationServer $server
      */
-    protected function buildAuthCodeGrant()
+    protected function registerGrants(AuthorizationServer $server)
     {
-        return new AuthCodeGrant(
-            $this->getContainer()->make(Bridge\AuthCodeRepository::class),
-            $this->getContainer()->make(Bridge\RefreshTokenRepository::class),
-            new DateInterval('PT10M')
+        $this->makeGrant(
+            $server,
+            ConfigHelper::get('grant_types.AuthCode', null),
+            [
+                $this->getContainer()->get(AuthCodeRepositoryInterface::class),
+                $this->getContainer()->get(RefreshTokenRepositoryInterface::class),
+                ConfigHelper::get('token_ttl')
+            ]
         );
+
+        $this->makeGrant($server, ConfigHelper::get('grant_types.RefreshToken', null), [
+            $this->getContainer()->get(RefreshTokenRepositoryInterface::class)
+        ]);
+
+        $this->makeGrant($server, ConfigHelper::get('grant_types.Password', null), [
+            $this->getContainer()->get(UserRepositoryInterface::class),
+            $this->getContainer()->get(RefreshTokenRepositoryInterface::class)
+        ]);
+
+        $this->makeGrant($server, ConfigHelper::get('grant_types.Implicit', null), [
+            ConfigHelper::get('token_ttl')
+        ]);
+
+        $this->makeGrant($server, ConfigHelper::get('grant_types.ClientCredentials', null), []);
     }
 
     /**
-     * @inheritdoc
+     * @param AuthorizationServer $server
+     * @param string|null $type
+     * @param array $args
      */
-    public function provides()
+    protected function makeGrant(AuthorizationServer $server, string $type, array $args)
     {
-        return ['hello.server'];
+        if ($type !== null) {
+            $grant = new $type(...$args);
+            if ($type !== null && $grant !== null) {
+                $server->enableGrantType($grant);
+            }
+        }
     }
 
     /**
@@ -82,7 +130,7 @@ class HelloServiceProvider extends AbstractSignatureServiceProvider
     {
         $configKey = null;
         if ($this->getContainer()->has('config')) {
-            $configKey = $this->getContainer()->get('config')->get('hello.' . $type . '_key');
+            $configKey = ConfigHelper::get($type . '_key');
         }
         $key = str_replace('\\n', "\n", $configKey);
         if (!$key) {
@@ -94,5 +142,13 @@ class HelloServiceProvider extends AbstractSignatureServiceProvider
         }
 
         return new CryptKey($key, null, false);
+    }
+
+    protected function registerRepositories()
+    {
+        $repositories = ModelsHelper::repositories();
+        foreach ($repositories as $interface => $class) {
+            $this->getContainer()->alias($class, $interface);
+        }
     }
 }

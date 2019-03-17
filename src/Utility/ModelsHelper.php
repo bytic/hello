@@ -5,6 +5,12 @@ namespace ByTIC\Hello\Utility;
 use ByTIC\Hello\Models\AccessTokens\Tokens;
 use ByTIC\Hello\Models\Clients\Clients;
 use ByTIC\Hello\Models\Scopes\Scopes;
+use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
+use League\OAuth2\Server\Repositories\AuthCodeRepositoryInterface;
+use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
+use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
+use League\OAuth2\Server\Repositories\ScopeRepositoryInterface;
+use League\OAuth2\Server\Repositories\UserRepositoryInterface;
 use Nip\Records\Locator\ModelLocator;
 use Nip\Records\RecordManager;
 
@@ -14,18 +20,21 @@ use Nip\Records\RecordManager;
  */
 class ModelsHelper
 {
-    protected static $clientsClass = Clients::class;
-
-    protected static $accessTokensClass = Tokens::class;
-
-    protected static $scopesClass = Scopes::class;
+    protected static $repositories = [
+        AccessTokenRepositoryInterface::class => Tokens::class,
+        ClientRepositoryInterface::class => Clients::class,
+        RefreshTokenRepositoryInterface::class => null,
+        ScopeRepositoryInterface::class => Scopes::class,
+        AuthCodeRepositoryInterface::class => null,
+        UserRepositoryInterface::class => null,
+    ];
 
     /**
      * @return Clients|\Nip\Records\AbstractModels\RecordManager
      */
     public static function clients()
     {
-        return ModelLocator::get(static::$clientsClass);
+        return static::getRepository(ClientRepositoryInterface::class);
     }
 
     /**
@@ -33,7 +42,7 @@ class ModelsHelper
      */
     public static function useClientsManager(RecordManager $manager)
     {
-        ModelLocator::set(static::$clientsClass, $manager);
+        ModelLocator::set(Clients::class, $manager);
     }
 
     /**
@@ -41,7 +50,7 @@ class ModelsHelper
      */
     public static function accessTokens()
     {
-        return ModelLocator::get(static::$accessTokensClass);
+        return static::getRepository(AccessTokenRepositoryInterface::class);
     }
 
     /**
@@ -49,6 +58,24 @@ class ModelsHelper
      */
     public static function scopes()
     {
-        return ModelLocator::get(static::$scopesClass);
+        return static::getRepository(ScopeRepositoryInterface::class);
+    }
+
+    /**
+     * @param $alias
+     * @return \Nip\Records\AbstractModels\RecordManager
+     */
+    protected static function getRepository($alias)
+    {
+        $class = static::$repositories[$alias];
+        return ModelLocator::get($class);
+    }
+
+    /**
+     * @return array
+     */
+    public static function repositories()
+    {
+        return static::$repositories;
     }
 }

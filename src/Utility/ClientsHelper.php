@@ -29,5 +29,4 @@ class ClientsHelper
         static::$personalAccessClientId = $clientId;
         return new static;
     }
-
 }
