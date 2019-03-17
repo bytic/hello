@@ -80,6 +80,6 @@ trait ClientHasGrantsTrait
 
     protected function updateGrantsDbField()
     {
-        $this->_data['grants'] = implode(',', $this->getGrants());
+        $this->_data['grant_types'] = implode(',', $this->getGrants());
     }
 }

@@ -52,7 +52,7 @@ class ClientHasGrantsTraitTest extends AbstractTest
     {
         /** @var Clients $clients */
         $clients = \Mockery::mock(Clients::class)->makePartial();
-        $clients->shouldReceive('getFields')->andReturn(['id', 'identifier', 'grants']);
+        $clients->shouldReceive('getFields')->andReturn(['id', 'identifier', 'grant_types']);
         $clients->shouldReceive('getPrimaryKey')->andReturn('id');
         $clients->shouldReceive('getModel')->andReturn(Client::class);
 
@@ -60,6 +60,6 @@ class ClientHasGrantsTraitTest extends AbstractTest
         $client->addGrants([GrantsHelper::GRANT_TYPE_PERSONAL_ACCESS, GrantsHelper::GRANT_TYPE_AUTH_CODE]);
 
         $data = $clients->getQueryModelData($client);
-        self::assertArrayHasKey('grants', $data);
+        self::assertArrayHasKey('grant_types', $data);
     }
 }

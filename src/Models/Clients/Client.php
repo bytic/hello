@@ -27,6 +27,15 @@ class Client extends \Nip\Records\Record implements ClientEntityInterface
     /**
      * @inheritDoc
      */
+    public function writeData()
+    {
+        parent::writeData();
+        $this->grants = implode($this->grant_types);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function setIdentifier($value)
     {
         $this->_data['identifier'] = $value;
