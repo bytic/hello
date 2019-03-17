@@ -25,6 +25,15 @@ class Client extends \Nip\Records\Record implements ClientEntityInterface
     }
 
     /**
+     * @inheritDoc
+     */
+    public function setIdentifier($value)
+    {
+        $this->_data['identifier'] = $value;
+        $this->identifier = $value;
+    }
+
+    /**
      * @param mixed $name
      */
     public function setName($name)

@@ -4,6 +4,7 @@ namespace ByTIC\Hello\Models\Clients\PersonalAccess;
 
 use ByTIC\Hello\Models\Clients\Client;
 use ByTIC\Hello\Utility\ClientsHelper;
+use ByTIC\Hello\Utility\GrantsHelper;
 use ByTIC\Hello\Utility\ModelsHelper;
 
 /**
@@ -55,7 +56,7 @@ class ClientsManager
 
         $name = empty($name) ? 'Personal Access Client' : $name;
         $client->setName($name);
-
+        $client->addGrants(GrantsHelper::GRANT_TYPE_PERSONAL_ACCESS);
         $client->setRedirectUri(ClientsHelper::PERSONAL_ACCESS_REDIRECT_URI);
         $client->save();
         return $client;
