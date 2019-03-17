@@ -1,5 +1,6 @@
 <?php
 
+use ByTIC\Hello\Oauth\Grants\PersonalAccessGrant;
 use League\OAuth2\Server\Grant\AuthCodeGrant;
 use League\OAuth2\Server\Grant\RefreshTokenGrant;
 use League\OAuth2\Server\Grant\ImplicitGrant;
@@ -57,7 +58,8 @@ return [
     |
     */
     'grant_types' => [
-        'AuthCode' => AuthCodeGrant::class,
+        'PersonalAccess' => PersonalAccessGrant::class,
+//        'AuthCode' => AuthCodeGrant::class,
 //        'RefreshToken' => RefreshTokenGrant::class,
 //        'Password' => PasswordGrant::class,
 //        'Implicit' => ImplicitGrant::class,

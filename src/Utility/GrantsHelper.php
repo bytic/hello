@@ -15,6 +15,7 @@ final class GrantsHelper
     const GRANT_TYPE_IMPLICIT = 'token';
     const GRANT_TYPE_USER_CREDENTIALS = 'password';
     const GRANT_TYPE_CLIENT_CREDENTIALS = 'client_credentials';
+    const GRANT_TYPE_PERSONAL_ACCESS = 'personal_access';
     const GRANT_TYPE_REFRESH_TOKEN = 'refresh_token';
     const GRANT_TYPE_EXTENSIONS = 'extensions';
     /**
