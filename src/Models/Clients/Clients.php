@@ -41,4 +41,12 @@ class Clients extends \Nip\Records\RecordManager implements ClientRepositoryInte
         }
         return $client;
     }
+
+    /** @noinspection PhpMissingParentCallCommonInspection
+     * @inheritDoc
+     */
+    protected function generateTable()
+    {
+        return 'oauth_clients';
+    }
 }

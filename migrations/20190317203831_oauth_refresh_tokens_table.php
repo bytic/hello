@@ -35,7 +35,7 @@ class OauthRefreshTokensTable extends AbstractMigration
         $table = $this->table('oauth_refresh_tokens');
         $table
             ->addColumn('identifier', 'string', ['limit' => 100])
-            ->addColumn('access_token_id', 'int', [])
+            ->addColumn('access_token_id', 'integer', [])
             ->addColumn('expires_at', 'datetime', ['null' => true])
             ->addColumn('created', 'datetime')
             ->addColumn('updated', 'datetime', ['null' => true])

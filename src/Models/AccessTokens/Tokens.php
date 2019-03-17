@@ -75,4 +75,12 @@ class Tokens extends \Nip\Records\RecordManager implements AccessTokenRepository
         }
         return true;
     }
+
+    /** @noinspection PhpMissingParentCallCommonInspection
+     * @inheritDoc
+     */
+    protected function generateTable()
+    {
+        return 'oauth_access_tokens';
+    }
 }

@@ -57,4 +57,12 @@ class RefreshTokens extends \Nip\Records\RecordManager implements RefreshTokenRe
     {
         // TODO: Implement isRefreshTokenRevoked() method.
     }
+
+    /** @noinspection PhpMissingParentCallCommonInspection
+     * @inheritDoc
+     */
+    protected function generateTable()
+    {
+        return 'oauth_refresh_tokens';
+    }
 }

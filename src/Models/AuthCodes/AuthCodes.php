@@ -57,4 +57,12 @@ class AuthCodes extends \Nip\Records\RecordManager implements AuthCodeRepository
     {
         // TODO: Implement isAuthCodeRevoked() method.
     }
+
+    /** @noinspection PhpMissingParentCallCommonInspection
+     * @inheritDoc
+     */
+    protected function generateTable()
+    {
+        return 'oauth_auth_codes';
+    }
 }

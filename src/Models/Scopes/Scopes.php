@@ -44,4 +44,12 @@ class Scopes extends \Nip\Records\RecordManager implements ScopeRepositoryInterf
     ) {
         // TODO: Implement finalizeScopes() method.
     }
+
+    /** @noinspection PhpMissingParentCallCommonInspection
+     * @inheritDoc
+     */
+    protected function generateTable()
+    {
+        return 'oauth_scopes';
+    }
 }
