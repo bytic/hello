@@ -40,7 +40,8 @@ class HelloServiceProvider extends AbstractSignatureServiceProvider
             ModelsHelper::clients(),
             ModelsHelper::accessTokens(),
             ModelsHelper::scopes(),
-            $this->makeCryptKey('private')
+            $this->makeCryptKey('private'),
+            $this->makeCryptKey('public')
         );
 
 //        $server->enableGrantType(
