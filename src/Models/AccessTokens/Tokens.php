@@ -28,7 +28,7 @@ class Tokens extends \Nip\Records\RecordManager implements AccessTokenRepository
     public function getNewToken(ClientEntityInterface $clientEntity, array $scopes, $userIdentifier = null)
     {
         $token = $this->getNew();
-        $token->populateFromClient($userIdentifier);
+        $token->populateFromClient($clientEntity);
         $token->setUserIdentifier($userIdentifier);
         $token->addScopes($scopes);
         return $token;

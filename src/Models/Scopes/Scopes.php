@@ -43,6 +43,7 @@ class Scopes extends \Nip\Records\RecordManager implements ScopeRepositoryInterf
         $userIdentifier = null
     ) {
         // TODO: Implement finalizeScopes() method.
+        return [];
     }
 
     /** @noinspection PhpMissingParentCallCommonInspection
