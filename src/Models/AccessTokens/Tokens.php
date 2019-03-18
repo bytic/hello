@@ -23,7 +23,7 @@ class Tokens extends \Nip\Records\RecordManager implements AccessTokenRepository
      * @param ScopeEntityInterface[] $scopes
      * @param mixed $userIdentifier
      *
-     * @return AccessTokenEntityInterface
+     * @return AccessTokenEntityInterface|Token
      */
     public function getNewToken(ClientEntityInterface $clientEntity, array $scopes, $userIdentifier = null)
     {
@@ -53,7 +53,7 @@ class Tokens extends \Nip\Records\RecordManager implements AccessTokenRepository
      */
     public function revokeAccessToken($tokenId)
     {
-        $token = $this->findOne($tokenId);
+        $token = $this->getByIdentifier($tokenId);
         if (!($token instanceof Token)) {
             return;
         }
@@ -70,10 +70,19 @@ class Tokens extends \Nip\Records\RecordManager implements AccessTokenRepository
      */
     public function isAccessTokenRevoked($tokenId)
     {
-        if ($token = $this->findOne($tokenId)) {
+        if ($token = $this->getByIdentifier($tokenId)) {
             return $token->revoked;
         }
         return true;
+    }
+
+    /**
+     * @param $tokenId
+     * @return Token|null
+     */
+    public function getByIdentifier($tokenId)
+    {
+        return $this->findByField('identifier', $tokenId);
     }
 
     /** @noinspection PhpMissingParentCallCommonInspection

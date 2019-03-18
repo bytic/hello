@@ -19,9 +19,15 @@ class TokensTest extends AbstractTest
         $manager->setPrimaryKey('id');
 
         $client = new Client();
+        $client->setIdentifier('999');
 
-        $token = $manager->getNewToken($client, []);
+        $token = $manager->getNewToken($client, [], '3');
         self::assertInstanceOf(Token::class, $token);
         self::assertSame($client, $token->getClient());
+
+        self::assertEquals(
+            ['client_id' => '999', 'user_id' => '3'],
+            $token->toArray()
+        );
     }
 }
