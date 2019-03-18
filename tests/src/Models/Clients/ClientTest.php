@@ -12,29 +12,15 @@ use ByTIC\Hello\Tests\AbstractTest;
  */
 class ClientTest extends AbstractTest
 {
-    /**
-     * @dataProvider dataInitFromDB()
-     * @param $grantDb
-     * @param $grantArray
-     */
-    public function testInitFromDB($grantDb, $grantArray)
+
+    public function testInitIdentifierFromDB()
     {
         $client = new Client();
-        $client->writeData(['id' => 9, 'grant_types' => $grantDb]);
+        $client->writeData(['id' => 9, 'identifier' => '']);
+        self::assertGreaterThan('30', $client->getIdentifier());
 
-        self::assertSame($grantArray, $client->getGrants());
-    }
-
-    /**
-     * @return array
-     */
-    public static function dataInitFromDB()
-    {
-        return [
-            ['', []],
-            ['personal_access', ['personal_access']],
-            ['personal_access,authorization_code', ['personal_access', 'authorization_code']],
-        ];
+        $client->writeData(['id' => 9, 'identifier' => '9999']);
+        self::assertSame('9999', $client->getIdentifier());
     }
 
     public function testSetIdentifier()

@@ -27,10 +27,11 @@ class Client extends \Nip\Records\Record implements ClientEntityInterface
     /**
      * @inheritDoc
      */
-    public function writeData()
+    public function writeData($data = false)
     {
-        parent::writeData();
-        $this->grants = implode($this->grant_types);
+        parent::writeData($data);
+        $this->initGrantsFromDb();
+        $this->initIdentifierFromDb();
     }
 
     /**
@@ -40,6 +41,13 @@ class Client extends \Nip\Records\Record implements ClientEntityInterface
     {
         $this->_data['identifier'] = $value;
         $this->identifier = $value;
+    }
+
+    public function initIdentifierFromDb()
+    {
+        if (!empty($this->_data['identifier'])) {
+            $this->setIdentifier($this->_data['identifier']);
+        }
     }
 
     /**

@@ -62,4 +62,29 @@ class ClientHasGrantsTraitTest extends AbstractTest
         $data = $clients->getQueryModelData($client);
         self::assertArrayHasKey('grant_types', $data);
     }
+
+    /**
+     * @dataProvider dataInitFromDB()
+     * @param $grantDb
+     * @param $grantArray
+     */
+    public function testInitFromDB($grantDb, $grantArray)
+    {
+        $client = new Client();
+        $client->writeData(['id' => 9, 'grant_types' => $grantDb]);
+
+        self::assertSame($grantArray, $client->getGrants());
+    }
+
+    /**
+     * @return array
+     */
+    public static function dataInitFromDB()
+    {
+        return [
+            ['', []],
+            ['personal_access', ['personal_access']],
+            ['personal_access,authorization_code', ['personal_access', 'authorization_code']],
+        ];
+    }
 }

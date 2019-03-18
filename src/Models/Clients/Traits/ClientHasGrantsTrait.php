@@ -82,4 +82,13 @@ trait ClientHasGrantsTrait
     {
         $this->_data['grant_types'] = implode(',', $this->getGrants());
     }
+
+    protected function initGrantsFromDb()
+    {
+        if (!empty($this->grant_types)) {
+            $this->grants = explode(',', $this->grant_types);
+        } else {
+            $this->grants = [];
+        }
+    }
 }
