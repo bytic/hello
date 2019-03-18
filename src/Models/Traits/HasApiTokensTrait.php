@@ -2,7 +2,9 @@
 
 namespace ByTIC\Hello\Models\Traits;
 
+use ByTIC\Hello\Models\AccessTokens\Token;
 use ByTIC\Hello\Models\Clients\PersonalAccess\TokenFactory;
+use ByTIC\Hello\Utility\ModelsHelper;
 use Nip\Container\Container;
 
 /**
@@ -14,18 +16,42 @@ trait HasApiTokensTrait
     /**
      * The current access token for the authentication user.
      *
-     * @var \Laravel\Passport\Token
+     * @var Token
      */
-    protected $accessToken;
+    protected $accessToken = null;
+
+    /**
+     * Set the current access token being used by the user.
+     *
+     * @param Token|boolean $token
+     * @return Token|null
+     */
+    public function setToken($token)
+    {
+        return $this->accessToken = $token;
+    }
 
     /**
      * Get the current access token being used by the user.
      *
-     * @return \Laravel\Passport\Token|null
+     * @return Token|null
      */
     public function token()
     {
+        if ($this->accessToken === null) {
+            $this->initToken();
+        }
         return $this->accessToken;
+    }
+
+    /**
+     * @param $name
+     * @param array $scopes
+     */
+    public function initTokenInModel($name, array $scopes = [])
+    {
+        $token = $this->createToken($name, $scopes);
+        $this->setToken($token);
     }
 
     /**
@@ -33,12 +59,19 @@ trait HasApiTokensTrait
      *
      * @param string $name
      * @param array $scopes
-     * @return \Laravel\Passport\PersonalAccessTokenResult
+     * @return Token|null
      */
     public function createToken($name, array $scopes = [])
     {
-        return Container::getInstance()
+        $tokenResponse = Container::getInstance()
             ->get(TokenFactory::class)
             ->make($this->getPrimaryKey(), $name, $scopes);
+
+        return ModelsHelper::accessTokens()->getByIdentifier($tokenResponse['access_token']);
+    }
+
+    protected function initToken()
+    {
+        $this->setToken(false);
     }
 }
