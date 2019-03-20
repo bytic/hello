@@ -17,7 +17,7 @@ class ClientTest extends AbstractTest
     {
         $client = new Client();
         $client->writeData(['id' => 9, 'identifier' => '']);
-        self::assertGreaterThan('30', $client->getIdentifier());
+        self::assertGreaterThan('20', $client->getIdentifier());
 
         $client->writeData(['id' => 9, 'identifier' => '9999']);
         self::assertSame('9999', $client->getIdentifier());
