@@ -52,9 +52,9 @@ class TokensTest extends AbstractTest
         $user = new User();
         $user->setIdentifier('user-1');
 
-        $token = $manager->getValidUserTokens($user, $client);
+        $tokens = $manager->getValidUserTokens($user, $client);
 
-        self::assertInstanceOf(Token::class, $token);
+        self::assertInstanceOf(Collection::class, $tokens);
 
         $where = $query->getPart('where');
         self::assertInstanceOf(AndCondition::class, $where);

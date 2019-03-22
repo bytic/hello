@@ -24,7 +24,7 @@ class HasApiTokensTest extends AbstractTest
         Container::setInstance($container);
 
         $factory = m::mock();
-        $factory->shouldReceive('make')->once()->with(1, 'name', ['scopes']);
+        $factory->shouldReceive('make')->once()->with('users|1', 'name', ['scopes']);
         $container->share(TokenFactory::class, $factory);
 
         $tokens = m::mock(Tokens::class)->makePartial();
