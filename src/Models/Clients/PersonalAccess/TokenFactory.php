@@ -37,7 +37,6 @@ class TokenFactory
     {
         $this->server = $server ? $server : Container::getInstance()->get(AuthorizationServer::class);
         $this->client = $client ? $client : ClientsManager::get();
-
     }
 
 

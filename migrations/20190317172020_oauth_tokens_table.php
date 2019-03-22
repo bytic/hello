@@ -35,8 +35,8 @@ class OauthTokensTable extends AbstractMigration
         $table = $this->table('oauth_access_tokens');
         $table
             ->addColumn('identifier', 'string', ['limit' => 100])
-            ->addColumn('user_id', 'integer', [])
-            ->addColumn('client_id', 'integer', [])
+            ->addColumn('user_id', 'string', ['limit' => 100])
+            ->addColumn('client_id', 'string', ['limit' => 100])
             ->addColumn('name', 'string', [])
             ->addColumn('scopes', 'text', [])
             ->addColumn('revoked', 'boolean', [])

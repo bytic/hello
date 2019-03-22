@@ -105,7 +105,8 @@ class Tokens extends \Nip\Records\RecordManager implements AccessTokenRepository
      */
     public function getByIdentifier($tokenId)
     {
-        return $this->findByField('identifier', $tokenId);
+        $collection = $this->findByField('identifier', $tokenId);
+        return $collection->current();
     }
 
     /** @noinspection PhpMissingParentCallCommonInspection
