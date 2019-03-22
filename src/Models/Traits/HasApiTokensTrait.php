@@ -67,7 +67,7 @@ trait HasApiTokensTrait
             ->get(TokenFactory::class)
             ->make($this->getIdentifier(), $name, $scopes);
 
-        return ModelsHelper::accessTokens()->getByIdentifier($tokenResponse['access_token']);
+        return $tokenResponse;
     }
 
     protected function initToken()

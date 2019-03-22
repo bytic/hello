@@ -2,11 +2,11 @@
 
 namespace ByTIC\Hello\Tests\Models\Clients\PersonalAccess;
 
+use ByTIC\Hello\Models\AccessTokens\Token;
 use ByTIC\Hello\Models\Clients\Client;
 use ByTIC\Hello\Models\Clients\PersonalAccess\TokenFactory;
 use ByTIC\Hello\Tests\AbstractTest;
 use League\OAuth2\Server\AuthorizationServer;
-use League\OAuth2\Server\Grant\AuthCodeGrant;
 use Mockery as m;
 
 /**
@@ -20,14 +20,16 @@ class TokenFactoryTest extends AbstractTest
         $server = m::mock(AuthorizationServer::class)->makePartial();
         $server->shouldReceive('respondToAccessTokenRequest')->andReturn($response = m::mock());
         $response->shouldReceive('getBody->__toString')->andReturn(json_encode([
-            'access_token' => 'foo',
+            'access_token' => 'foo.john.doe',
         ]));
 
         $client = new Client();
 
-        $factory = new TokenFactory($server, $client);
+        $factory = m::mock(TokenFactory::class, [$server, $client])
+            ->makePartial()->shouldAllowMockingProtectedMethods();
+        $factory->shouldReceive('findAccessToken')->andReturn(new Token());
 
-        $result = $factory->make(1, 'token', ['scopes']);
-//        $this->assertInstanceOf(PersonalAccessTokenResult::class, $result);
+        $token = $factory->make(1, 'token', ['scopes']);
+        $this->assertInstanceOf(Token::class, $token);
     }
 }

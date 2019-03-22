@@ -35,8 +35,8 @@ trait UserTrait
 
     public function doAuthentication()
     {
-        $this->doAuthenticationTrait();
         $this->access_token = $this->token()->getIdentifier();
+        $this->doAuthenticationTrait();
     }
 
     protected function initIdentifier()

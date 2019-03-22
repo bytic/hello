@@ -18,13 +18,21 @@ trait GrantsTrait
     /**
      * @param AuthorizationServer $server
      */
-    protected function registerGrants(AuthorizationServer $server)
+    public function registerGrants(AuthorizationServer $server)
     {
-        $grantTypes = ConfigHelper::get('grant_types', []);
+        $grantTypes = $this->getRegisteredGrants();
         foreach ($grantTypes as $type => $class) {
             $method = 'makeGrant' . $type;
             $this->{$method}($server, $class);
         }
+    }
+
+    /**
+     * @return mixed|\Nip\Config\Config
+     */
+    protected function getRegisteredGrants()
+    {
+        return ConfigHelper::get('grant_types', []);
     }
 
     /**

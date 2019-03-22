@@ -15,7 +15,7 @@ use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
  * @property int $user_id
  * @property int $client_id
  * @property string $revoked
- * @property string $expire_at
+ * @property string $expires_at
  */
 class Token extends \Nip\Records\Record implements AccessTokenEntityInterface
 {
@@ -33,6 +33,9 @@ class Token extends \Nip\Records\Record implements AccessTokenEntityInterface
         if (isset($data['expire_at'])) {
             $date = new \DateTime($data['expire_at']);
             $this->setExpiryDateTime($date);
+        }
+        if (isset($data['identifier'])) {
+            $this->setIdentifier($data['identifier']);
         }
     }
 
@@ -94,6 +97,6 @@ class Token extends \Nip\Records\Record implements AccessTokenEntityInterface
     protected function castExpireDateTime()
     {
         $date = $this->getExpiryDateTime();
-        $this->expire_at = ($date) ? $date->format('Y-m-d') : '';
+        $this->expires_at = ($date) ? $date->format('Y-m-d') : '';
     }
 }
