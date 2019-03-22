@@ -14,6 +14,7 @@ use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
  *
  * @property int $user_id
  * @property int $client_id
+ * @property string $revoked
  */
 class Token extends \Nip\Records\Record implements AccessTokenEntityInterface
 {

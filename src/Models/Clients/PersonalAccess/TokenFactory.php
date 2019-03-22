@@ -30,7 +30,7 @@ class TokenFactory
     /**
      * TokenFactory constructor
      *
-     * @param  \League\OAuth2\Server\AuthorizationServer $server
+     * @param \League\OAuth2\Server\AuthorizationServer $server
      * @param $client
      */
     public function __construct(AuthorizationServer $server = null, $client = null)
@@ -44,9 +44,9 @@ class TokenFactory
     /**
      * Create a new personal access token.
      *a
-     * @param  mixed $userId
-     * @param  string $name
-     * @param  array $scopes
+     * @param mixed $userId
+     * @param string $name
+     * @param array $scopes
      * @return \Laravel\Passport\PersonalAccessTokenResult
      */
     public function make($userId, $name, array $scopes = [])
@@ -68,9 +68,9 @@ class TokenFactory
     /**
      * Create a request instance for the given client.
      *
-     * @param  Client $client
-     * @param  mixed $userId
-     * @param  array $scopes
+     * @param Client $client
+     * @param mixed $userId
+     * @param array $scopes
      * @return Request
      */
     protected function createRequest($client, $userId, array $scopes)
@@ -87,7 +87,7 @@ class TokenFactory
     /**
      * Dispatch the given request to the authorization server.
      *
-     * @param  Request $request
+     * @param Request $request
      * @return array
      */
     protected function dispatchRequestToAuthorizationServer(ServerRequest $request)

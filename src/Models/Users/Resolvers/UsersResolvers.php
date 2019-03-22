@@ -2,6 +2,7 @@
 
 namespace ByTIC\Hello\Models\Users\Resolvers;
 
+use ByTIC\Hello\Models\Users\Traits\UserTrait;
 use League\OAuth2\Server\Entities\UserEntityInterface;
 use Nip\Records\Locator\ModelLocator;
 use Nip\Records\Record;
@@ -15,7 +16,7 @@ class UsersResolvers
     const SEPARATOR = '|';
 
     /**
-     * @param Record|UserEntityInterface $entity
+     * @param Record|UserEntityInterface|UserTrait $entity
      * @return string
      */
     public static function identifier(Record $entity)

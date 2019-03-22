@@ -3,6 +3,7 @@
 namespace ByTIC\Hello\Tests\Fixtures\Models\Users;
 
 use ByTIC\Hello\Models\Traits\HasApiTokensTrait;
+use ByTIC\Hello\Models\Users\Traits\UserTrait;
 use Nip\Records\Record;
 
 /**
@@ -11,7 +12,7 @@ use Nip\Records\Record;
  */
 class User extends Record
 {
-    use HasApiTokensTrait;
+    use UserTrait;
 
     /**
      * @inheritdoc

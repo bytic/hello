@@ -72,6 +72,23 @@ trait HasApiTokensTrait
 
     protected function initToken()
     {
-        $this->setToken(false);
+        $this->setToken($this->generateToken());
+    }
+
+    /**
+     * @return bool
+     */
+    protected function generateToken()
+    {
+        return false;
+    }
+
+    /**
+     * @param null $name
+     * @return string|null
+     */
+    protected function generateTokenName($name = null)
+    {
+        return !empty($name) ? $name : 'default';
     }
 }

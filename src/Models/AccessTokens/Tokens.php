@@ -2,11 +2,16 @@
 
 namespace ByTIC\Hello\Models\AccessTokens;
 
+use ByTIC\Hello\Models\Clients\Client;
+use ByTIC\Hello\Models\Users\Traits\UserTrait;
+use Carbon\Carbon;
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Entities\ScopeEntityInterface;
+use League\OAuth2\Server\Entities\TokenInterface;
 use League\OAuth2\Server\Exception\UniqueTokenIdentifierConstraintViolationException;
 use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
+use Nip\Records\Collections\Collection;
 
 /**
  * Class Tokens
@@ -70,10 +75,28 @@ class Tokens extends \Nip\Records\RecordManager implements AccessTokenRepository
      */
     public function isAccessTokenRevoked($tokenId)
     {
-        if ($token = $this->getByIdentifier($tokenId)) {
+        $token = $this->getByIdentifier($tokenId);
+        if ($token instanceof TokenInterface) {
             return $token->revoked;
         }
         return true;
+    }
+
+    /**
+     * @param UserTrait $user
+     * @param Client $client
+     * @return Collection|Token[]
+     */
+    public function getValidUserTokens($user, $client)
+    {
+        $params = [];
+        $params['where'] = [
+            ['user_id = ?', $user->getIdentifier()],
+            ['client_id = ?', $client->getIdentifier()],
+            ['revoked = ?', 0],
+            ['expires_at > ?', Carbon::now()->toDateString()],
+        ];
+        return $this->findByParams($params);
     }
 
     /**
