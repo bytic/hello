@@ -15,6 +15,7 @@ use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
  * @property int $user_id
  * @property int $client_id
  * @property string $revoked
+ * @property string $expire_at
  */
 class Token extends \Nip\Records\Record implements AccessTokenEntityInterface
 {
@@ -24,6 +25,15 @@ class Token extends \Nip\Records\Record implements AccessTokenEntityInterface
     }
     use TokenEntityTrait {
         setUserIdentifier as setUserIdentifierTrait;
+    }
+
+    public function writeData($data = false)
+    {
+        parent::writeData($data);
+        if (isset($data['expire_at'])) {
+            $date = new \DateTime($data['expire_at']);
+            $this->setExpiryDateTime($date);
+        }
     }
 
     /**
@@ -61,5 +71,29 @@ class Token extends \Nip\Records\Record implements AccessTokenEntityInterface
         foreach ($scopes as $scope) {
             $this->addScope($scope);
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function insert()
+    {
+        $this->castExpireDateTime();
+        return parent::insert();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function update()
+    {
+        $this->castExpireDateTime();
+        return parent::insert();
+    }
+
+    protected function castExpireDateTime()
+    {
+        $date = $this->getExpiryDateTime();
+        $this->expire_at = ($date) ? $date->format('Y-m-d') : '';
     }
 }

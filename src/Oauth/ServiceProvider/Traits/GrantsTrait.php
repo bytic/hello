@@ -3,6 +3,7 @@
 namespace ByTIC\Hello\Oauth\ServiceProvider\Traits;
 
 use ByTIC\Hello\Utility\ConfigHelper;
+use DateInterval;
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\Repositories\AuthCodeRepositoryInterface;
 use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
@@ -35,7 +36,8 @@ trait GrantsTrait
         $this->makeGrant(
             $server,
             $class,
-            []
+            [],
+            new DateInterval('P1Y')
         );
     }
 
@@ -104,12 +106,12 @@ trait GrantsTrait
      * @param string|null $type
      * @param array $args
      */
-    protected function makeGrant(AuthorizationServer $server, string $type, array $args)
+    protected function makeGrant(AuthorizationServer $server, string $type, array $args, $accessTokenTTL = null)
     {
         if ($type !== null) {
             $grant = new $type(...$args);
             if ($type !== null && $grant !== null) {
-                $server->enableGrantType($grant);
+                $server->enableGrantType($grant, $accessTokenTTL);
             }
         }
     }
