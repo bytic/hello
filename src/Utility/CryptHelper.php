@@ -2,6 +2,7 @@
 
 namespace ByTIC\Hello\Utility;
 
+use League\OAuth2\Server\CryptKey;
 use phpseclib\Crypt\RSA;
 
 /**
@@ -67,5 +68,26 @@ class CryptHelper
         $result = $result && chmod($publicKeyPath, 0600);
 
         return $result;
+    }
+
+    /**
+     * @param $type
+     * @return CryptKey
+     */
+    public static function makeCryptKey($type)
+    {
+        $configKey = null;
+        $configKey = ConfigHelper::get($type . '_key');
+
+        $key = str_replace('\\n', "\n", $configKey);
+        if (!$key) {
+            $path = CryptHelper::keyPath('oauth-' . $type . '.key');
+            if (!file_exists($path)) {
+                CryptHelper::generateKeys(dirname($path));
+            }
+            $key = 'file://' . $path;
+        }
+
+        return new CryptKey($key, null, false);
     }
 }

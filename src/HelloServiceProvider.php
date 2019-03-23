@@ -35,6 +35,7 @@ class HelloServiceProvider extends AbstractSignatureServiceProvider implements B
         $return = ['hello.server', AuthorizationServer::class];
 
         $return = $this->appendRepositoriesToProvide($return);
+        $return = $this->appendCryptKeysToProvide($return);
         return $return;
     }
 

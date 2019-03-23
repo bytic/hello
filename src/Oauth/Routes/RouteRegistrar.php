@@ -2,6 +2,7 @@
 
 namespace ByTIC\Hello\Oauth\Routes;
 
+use ByTIC\Hello\Modules\Oauth\Controllers\KeysController;
 use Nip\Router\Route\Route;
 use Nip\Router\RouteCollection;
 use Nip\Router\RouteFactory;
@@ -46,7 +47,7 @@ class RouteRegistrar
             Route::class,
             "",
             "/oauth/keys",
-            ["controller" => "keys", "action" => "index"]
+            ["controller" => KeysController::class, "action" => "index"]
         );
     }
 }
