@@ -2,6 +2,7 @@
 
 namespace ByTIC\Hello;
 
+use ByTIC\Hello\Oauth\Routes\RouteRegistrar;
 use ByTIC\Hello\Oauth\ServiceProvider\Traits\AuthorizationServerTrait;
 use ByTIC\Hello\Oauth\ServiceProvider\Traits\RepositoriesTrait;
 use League\OAuth2\Server\AuthorizationServer;
@@ -43,6 +44,6 @@ class HelloServiceProvider extends AbstractSignatureServiceProvider implements B
     public function boot()
     {
         $router = $this->getContainer()->get('router');
-        $routes = $router->getRoutes();
+        (new RouteRegistrar($router))->all();
     }
 }

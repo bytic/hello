@@ -35,6 +35,7 @@ class RouteRegistrar
 
     public function all()
     {
+        $this->forKeys();
     }
 
     protected function forKeys()
