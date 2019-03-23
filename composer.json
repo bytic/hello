@@ -26,6 +26,7 @@
     "ext-json": "*",
     "bytic/auth": "^0.9|^1.0",
     "bytic/translation": "^0.9|^1.0",
+    "bytic/router": "^0.9|^1.0",
     "bytic/view": "^0.9|^1.0",
     "hybridauth/hybridauth": "^v2.12",
     "firebase/php-jwt": "~3.0|~4.0|~5.0",

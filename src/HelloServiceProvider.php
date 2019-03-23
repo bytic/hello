@@ -2,21 +2,20 @@
 
 namespace ByTIC\Hello;
 
-use ByTIC\Hello\Oauth\ServiceProvider\Traits\GrantsTrait;
-use ByTIC\Hello\Utility\ConfigHelper;
-use ByTIC\Hello\Utility\CryptHelper;
-use ByTIC\Hello\Utility\ModelsHelper;
+use ByTIC\Hello\Oauth\ServiceProvider\Traits\AuthorizationServerTrait;
+use ByTIC\Hello\Oauth\ServiceProvider\Traits\RepositoriesTrait;
 use League\OAuth2\Server\AuthorizationServer;
-use League\OAuth2\Server\CryptKey;
 use Nip\Container\ServiceProviders\Providers\AbstractSignatureServiceProvider;
+use Nip\Container\ServiceProviders\Providers\BootableServiceProviderInterface;
 
 /**
  * Class HelloServiceProvider
  * @package ByTIC\Auth
  */
-class HelloServiceProvider extends AbstractSignatureServiceProvider
+class HelloServiceProvider extends AbstractSignatureServiceProvider implements BootableServiceProviderInterface
 {
-    use GrantsTrait;
+    use RepositoriesTrait;
+    use AuthorizationServerTrait;
 
     /**
      * @inheritdoc
@@ -27,80 +26,23 @@ class HelloServiceProvider extends AbstractSignatureServiceProvider
         $this->registerAuthorizationServer();
     }
 
-    public function registerRepositories()
-    {
-        $repositories = ModelsHelper::repositories();
-        foreach ($repositories as $interface => $class) {
-            $this->getContainer()->alias($class, $interface);
-        }
-    }
-
-    public function registerAuthorizationServer()
-    {
-        $this->getContainer()->alias('hello.server', AuthorizationServer::class);
-
-        $this->getContainer()->share('hello.server', function () {
-            $server = $this->createAuthorizationServer();
-            $this->registerGrants($server);
-            return $server;
-        });
-    }
-
     /**
      * @inheritdoc
      */
     public function provides()
     {
-        $return = [
-            'hello.server',
-            AuthorizationServer::class
-        ];
+        $return = ['hello.server', AuthorizationServer::class];
 
-        $repositories = ModelsHelper::repositories();
-        foreach ($repositories as $interface => $class) {
-            $return[] = $interface;
-        }
-
+        $return = $this->appendRepositoriesToProvide($return);
         return $return;
     }
 
     /**
-     * @return AuthorizationServer
+     * @inheritDoc
      */
-    protected function createAuthorizationServer()
+    public function boot()
     {
-        $server = new AuthorizationServer(
-            ModelsHelper::clients(),
-            ModelsHelper::accessTokens(),
-            ModelsHelper::scopes(),
-            $this->makeCryptKey('private'),
-            $this->makeCryptKey('public')
-        );
-
-        return $server;
-    }
-
-
-    /**
-     * Create a CryptKey instance without permissions check
-     *
-     * @param  $type
-     * @return \League\OAuth2\Server\CryptKey
-     */
-    protected function makeCryptKey($type)
-    {
-        $configKey = null;
-        $configKey = ConfigHelper::get($type . '_key');
-
-        $key = str_replace('\\n', "\n", $configKey);
-        if (!$key) {
-            $path = CryptHelper::keyPath('oauth-' . $type . '.key');
-            if (!file_exists($path)) {
-                CryptHelper::generateKeys(dirname($path));
-            }
-            $key = 'file://' . $path;
-        }
-
-        return new CryptKey($key, null, false);
+        $router = $this->getContainer()->get('router');
+        $routes = $router->getRoutes();
     }
 }
