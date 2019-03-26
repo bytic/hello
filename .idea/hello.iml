@@ -6,6 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" packagePrefix="ByTIC\Hello" />
       <sourceFolder url="file://$MODULE_DIR$/tests/src" isTestSource="true" packagePrefix="ByTIC\Hello\Tests" />
       <sourceFolder url="file://$MODULE_DIR$/tests/fixtures" isTestSource="true" packagePrefix="ByTIC\Hello\Tests\Fixtures" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/bytic/application" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bytic/auth" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bytic/cache" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bytic/collections" />
@@ -14,6 +15,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/bytic/controllers" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bytic/cookie" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bytic/database" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/bytic/debug" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bytic/dispatcher" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bytic/filesystem" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bytic/google-analytics" />

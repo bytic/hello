@@ -5,7 +5,6 @@ namespace ByTIC\Hello\Oauth\Routes;
 use ByTIC\Hello\Modules\Oauth\Controllers\KeysController;
 use Nip\Router\Route\Route;
 use Nip\Router\RouteCollection;
-use Nip\Router\RouteFactory;
 use Nip\Router\Router;
 
 /**
@@ -41,13 +40,8 @@ class RouteRegistrar
 
     protected function forKeys()
     {
-        RouteFactory::generateLiteralRoute(
-            $this->routes,
-            "oauth.keys",
-            Route::class,
-            "",
-            "/oauth/keys",
-            ["controller" => KeysController::class, "action" => "index"]
-        );
+        $route = new Route("/oauth/keys", ["controller" => KeysController::class, "action" => "index"]);
+        $route->setName('oauth.keys');
+        $this->routes->prependRoute($route);
     }
 }

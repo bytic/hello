@@ -14,7 +14,8 @@ use League\OAuth2\Server\Entities\Traits\EntityTrait;
  * @package ByTIC\Hello\Models\Users\
  *
  * @property string $access_token
-*/
+ * @property string $access_jwt
+ */
 trait UserTrait
 {
     use AbstractUserTrait {
@@ -35,7 +36,9 @@ trait UserTrait
 
     public function doAuthentication()
     {
-        $this->access_token = $this->token()->getIdentifier();
+        $token = $this->token();
+        $this->access_token = $token->getIdentifier();
+        $this->access_jwt = $token->convertToJWT(app('hello.keys.public'));
         $this->doAuthenticationTrait();
     }
 
