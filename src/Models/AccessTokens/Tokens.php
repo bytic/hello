@@ -3,6 +3,7 @@
 namespace ByTIC\Hello\Models\AccessTokens;
 
 use ByTIC\Hello\Models\Clients\Client;
+use ByTIC\Hello\Models\Clients\Clients;
 use ByTIC\Hello\Models\Users\Traits\UserTrait;
 use Carbon\Carbon;
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
@@ -107,6 +108,12 @@ class Tokens extends \Nip\Records\RecordManager implements AccessTokenRepository
     {
         $collection = $this->findByField('identifier', $tokenId);
         return $collection->current();
+    }
+
+    protected function initRelations()
+    {
+        parent::initRelations();
+        $this->belongsTo('Client', ['class' => Clients::class, 'fk' => 'client_id', 'withPK' => 'identifier']);
     }
 
     /** @noinspection PhpMissingParentCallCommonInspection

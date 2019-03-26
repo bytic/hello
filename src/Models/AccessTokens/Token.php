@@ -19,13 +19,14 @@ use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
  */
 class Token extends \Nip\Records\Record implements AccessTokenEntityInterface
 {
-    use AccessTokenTrait;
     use EntityTrait {
         setIdentifier as setIdentifierTrait;
     }
     use TokenEntityTrait {
+        getClient as getClientTrait;
         setUserIdentifier as setUserIdentifierTrait;
     }
+    use AccessTokenTrait;
 
     public function writeData($data = false)
     {
@@ -46,6 +47,21 @@ class Token extends \Nip\Records\Record implements AccessTokenEntityInterface
     {
         $this->setClient($clientEntity);
         $this->client_id = $clientEntity->getIdentifier();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getClient()
+    {
+        $client = $this->getClientTrait();
+        if ($client instanceof ClientEntityInterface) {
+            return $client;
+        }
+        /** @var ClientEntityInterface $relationClient */
+        $relationClient = $this->getRelation('Client')->getResults();
+        $this->setClient($relationClient);
+        return $relationClient;
     }
 
     /**
