@@ -38,7 +38,7 @@ trait UserTrait
     {
         $token = $this->token();
         $this->access_token = $token->getIdentifier();
-        $this->access_jwt = $token->convertToJWT(app('hello.keys.public'));
+        $this->access_jwt = $token->convertToJWT(app('hello.keys.private'))->__toString();
         $this->doAuthenticationTrait();
     }
 

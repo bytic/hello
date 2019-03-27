@@ -31,8 +31,8 @@ class Token extends \Nip\Records\Record implements AccessTokenEntityInterface
     public function writeData($data = false)
     {
         parent::writeData($data);
-        if (isset($data['expire_at'])) {
-            $date = new \DateTime($data['expire_at']);
+        if (isset($data['expires_at'])) {
+            $date = new \DateTime($data['expires_at']);
             $this->setExpiryDateTime($date);
         }
         if (isset($data['identifier'])) {
