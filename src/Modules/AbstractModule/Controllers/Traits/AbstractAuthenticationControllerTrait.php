@@ -83,7 +83,6 @@ trait AbstractAuthenticationControllerTrait
         $this->getView()->Meta()->prependTitle($label);
     }
 
-
     /**
      * @inheritdoc
      */
