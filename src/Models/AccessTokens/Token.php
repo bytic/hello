@@ -28,6 +28,9 @@ class Token extends \Nip\Records\Record implements AccessTokenEntityInterface
     }
     use AccessTokenTrait;
 
+    /**
+     * @inheritDoc
+     */
     public function writeData($data = false)
     {
         parent::writeData($data);
@@ -37,6 +40,9 @@ class Token extends \Nip\Records\Record implements AccessTokenEntityInterface
         }
         if (isset($data['identifier'])) {
             $this->setIdentifier($data['identifier']);
+        }
+        if (isset($data['user_id'])) {
+            $this->setUserIdentifier($data['user_id']);
         }
     }
 

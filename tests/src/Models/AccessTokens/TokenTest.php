@@ -7,6 +7,7 @@ use ByTIC\Hello\Models\AccessTokens\Tokens;
 use ByTIC\Hello\Models\Clients\Client;
 use ByTIC\Hello\Models\Clients\Clients;
 use ByTIC\Hello\Tests\AbstractTest;
+use Nip\Collections\Collection;
 
 /**
  * Class TokenTest
@@ -41,7 +42,10 @@ class TokenTest extends AbstractTest
         $tokens->shouldReceive('getModel')->andReturn(Token::class);
 
         $clients = \Mockery::mock(Clients::class)->makePartial();
-        $clients->shouldReceive('findByField')->withArgs(['identifier', '999999'])->andReturn(new Client());
+        $clients->shouldReceive('findByField')->withArgs([
+            'identifier',
+            '999999'
+        ])->andReturn(new Collection([new Client()]));
         $tokens->getRelation('Client')->setWith($clients);
 
         $token = $tokens->getNew();
@@ -49,5 +53,13 @@ class TokenTest extends AbstractTest
 
         $client = $token->getClient();
         self::assertInstanceOf(Client::class, $client);
+    }
+
+    public function testGetUserIdentifierFromData()
+    {
+        $token = new Token();
+        $token->writeData(['user_id' => 99]);
+
+        self::assertEquals(99, $token->getUserIdentifier());
     }
 }
