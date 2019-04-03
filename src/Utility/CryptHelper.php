@@ -21,7 +21,7 @@ class CryptHelper
     /**
      * Set the storage location of the encryption keys.
      *
-     * @param  string $path
+     * @param string $path
      * @return void
      */
     public static function loadKeysFrom($path)
@@ -41,8 +41,8 @@ class CryptHelper
         if (static::$keyPath) {
             return rtrim(static::$keyPath, '/\\') . DIRECTORY_SEPARATOR . $file;
         }
-        if (function_exists('storage_path')) {
-            return storage_path($file);
+        if (function_exists('Nip\storage_path')) {
+            return \Nip\storage_path('hello\keys\\' . $file);
         }
         return PathHelper::keys($file);
     }

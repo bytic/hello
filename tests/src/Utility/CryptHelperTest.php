@@ -15,7 +15,7 @@ namespace ByTIC\Hello\Tests\Utility {
         {
             $path = CryptHelper::keyPath('oath.key');
             self::assertSame(
-                TEST_FIXTURE_PATH . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'oath.key',
+                \Nip\storage_path('hello\keys\oath.key'),
                 $path
             );
         }
@@ -26,7 +26,7 @@ namespace ByTIC\Hello\Tests\Utility {
 
             $files = ['oauth-private.key', 'oauth-public.key'];
             foreach ($files as $file) {
-                $path = storage_path($file);
+                $path = \Nip\storage_path('hello\keys\\' . $file);
                 self::assertFileExists($path);
 
                 $content = file_get_contents($path);
@@ -40,7 +40,7 @@ namespace ByTIC\Hello\Tests\Utility {
     }
 }
 
-namespace {
+namespace Nip {
 
     /**
      * @param $file
