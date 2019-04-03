@@ -2,6 +2,7 @@
 
 namespace ByTIC\Hello\Modules\Frontend\Controllers\Traits;
 
+use ByTIC\Hello\Models\Users\Logins\Traits\LoginTrait;
 use Exception;
 use Hybrid_Endpoint;
 use ByTIC\Hello\Library\Hybridauth\Hybridauth;
@@ -39,11 +40,9 @@ trait OAuthControllerTrait
             $form = $this->_getUser()->getForm($userAction);
 
             if ($form->execute()) {
-                $userLogin = ModelLocator::get('User_Logins')->getNew();
-                $userLogin->id_user = $this->_getUser()->id;
-                $userLogin->provider_name = $providerName;
-                $userLogin->provider_uid = $userProfile->identifier;
-                $userLogin->insert();
+                /** @var LoginTrait $userLogin */
+                ModelLocator::get('users-logins')
+                    ->createForProvider($providerName, $this->_getUser(), $userProfile);
 
                 $this->doSuccessRedirect($userAction);
             }
@@ -61,7 +60,7 @@ trait OAuthControllerTrait
         if ($userProfile instanceof Exception) {
             $this->getView()->set('exception', $userProfile);
         } else {
-            $userExist = ModelLocator::get('User_Logins')->getUserByProvider($providerName, $userProfile->identifier);
+            $userExist = ModelLocator::get('users-logins')->getUserByProvider($providerName, $userProfile->identifier);
 
             if (!$userExist) {
                 $this->redirect($this->Url()->assemble(

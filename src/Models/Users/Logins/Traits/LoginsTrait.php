@@ -2,15 +2,17 @@
 
 namespace ByTIC\Hello\Models\Users\Logins\Traits;
 
+use ByTIC\Hello\Models\Users\Logins\UsersLogin;
 use ByTIC\Hello\Models\Users\Traits\UsersTrait;
 use ByTIC\Hello\Models\Users\Traits\UserTrait;
+use Nip\Records\Locator\ModelLocator;
 use Nip\Records\RecordManager;
 
 /**
  * Trait LoginsTrait
  * @package ByTIC\Hello\Models\Users\Logins\Traits
  *
- * @method LoginTrait getNew
+ * @method LoginTrait|UsersLogin getNew
  */
 trait LoginsTrait
 {
@@ -23,6 +25,23 @@ trait LoginsTrait
     protected function initRelationsTrait()
     {
         $this->belongsTo('User');
+    }
+
+    /**
+     * @param $providerName
+     * @param $user
+     * @param $userProfile
+     * @return LoginTrait
+     */
+    public function createForProvider($providerName, $user, $userProfile)
+    {
+        $userLogin = $this->getNew();
+        $userLogin->populateFromUser($user);
+        $userLogin->populateFromUserProfile($userProfile);
+        $userLogin->provider_name = $providerName;
+        $userLogin->insert();
+
+        return $userLogin;
     }
 
     /**
