@@ -7,7 +7,7 @@ use ByTIC\Hello\Models\Users\Logins\Traits\LoginTrait;
 /**
  * Class User_Login
  */
-class UserLogin extends \Nip\Records\Record
+class UsersLogin extends \Nip\Records\Record
 {
     use LoginTrait;
 }
