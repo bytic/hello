@@ -42,7 +42,7 @@ class CryptHelper
             return rtrim(static::$keyPath, '/\\') . DIRECTORY_SEPARATOR . $file;
         }
         if (function_exists('Nip\storage_path')) {
-            return \Nip\storage_path('hello\keys\\' . $file);
+            return \Nip\storage_path('hello/keys/' . $file);
         }
         return PathHelper::keys($file);
     }
