@@ -4,7 +4,8 @@ namespace ByTIC\Hello\Library\Hybridauth;
 
 use Exception;
 use Hybrid_Auth;
-use Nip\Records\Locator\ModelLocator;
+use Nip\Router\Generator\UrlGenerator;
+use function Nip\url;
 use Nip\Utility\Traits\SingletonTrait;
 
 /**
@@ -19,16 +20,17 @@ class Hybridauth
 
     /**
      * @param $provider
-     * @return Exception
+     * @return \Hybrid_User_Profile
      */
-    public function authenticate($provider)
+    public function authenticate($provider, $params = null)
     {
         try {
-            // try to authenticate with the selected provider
-            $adapter = $this->getAuth()::authenticate($provider);
+            /** @var \Hybrid_Provider_Model $adapter */
+            $adapter = $this->getAuth()::authenticate($provider, $params);
             // then grab the user profile
             return $adapter->getUserProfile();
         } catch (Exception $e) {
+            /** @noinspection PhpIncompatibleReturnTypeInspection */
             return $e;
         }
     }
@@ -48,7 +50,7 @@ class Hybridauth
     protected function initAuth()
     {
         $config = config('hybridauth');
-        $config['base_url'] = ModelLocator::get('users')->getOAuthURL();
+        $config['base_url'] = url()->generate('frontend.o_auth', [], UrlGenerator::ABSOLUTE_URL);
         $this->hybridauth = new Hybrid_Auth($config->toArray());
     }
 }

@@ -15,6 +15,7 @@ use Nip\Records\Locator\ModelLocator;
 trait OAuthControllerTrait
 {
     use AbstractControllerTrait;
+
     /**
      * @return Hybrid_Endpoint
      */
