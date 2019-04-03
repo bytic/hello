@@ -42,6 +42,15 @@ trait UserTrait
         $this->doAuthenticationTrait();
     }
 
+    public function checkAccessToken()
+    {
+        if (empty($this->access_token)) {
+            $token = $this->token();
+            $this->access_token = $token->getIdentifier();
+            $this->access_jwt = $token->convertToJWT(app('hello.keys.private'))->__toString();
+        }
+    }
+
     protected function initIdentifier()
     {
         $this->setIdentifier(UsersResolvers::identifier($this));

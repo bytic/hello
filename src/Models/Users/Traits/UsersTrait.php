@@ -10,5 +10,16 @@ use ByTIC\Auth\Models\Users\Traits\AbstractUsersTrait;
  */
 trait UsersTrait
 {
-    use AbstractUsersTrait;
+    use AbstractUsersTrait {
+        beforeSetCurrent as beforeSetCurrentTrait;
+    }
+
+    /**
+     * @param UserTrait $item
+     */
+    public function beforeSetCurrent($item)
+    {
+        $this->beforeSetCurrentTrait($item);
+        $item->checkAccessToken();
+    }
 }
