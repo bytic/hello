@@ -3,6 +3,7 @@
 namespace ByTIC\Hello\Modules\AbstractModule\Controllers\Traits;
 
 use Nip\Controllers\Traits\AbstractControllerTrait;
+use Users;
 
 /**
  * Trait LoginControllerTrait
@@ -38,6 +39,12 @@ trait LoginControllerTrait
             $this->_getUser()->getManager()->compileURL('login')
         );
         $this->getView()->Meta()->prependTitle($this->getModelManager()->getLabel('login-title'));
+    }
+
+    public function oauth()
+    {
+        $jwt = $this->getRequest()->get('token');
+        $this->_getUser()->getManager()->authenticateWithToken($jwt);
     }
 
     /**
