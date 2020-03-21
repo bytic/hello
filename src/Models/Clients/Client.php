@@ -30,8 +30,14 @@ class Client extends \Nip\Records\Record implements ClientEntityInterface
     public function writeData($data = false)
     {
         parent::writeData($data);
-        $this->initGrantsFromDb();
-        $this->initIdentifierFromDb();
+
+        if (isset($data['grant_types'])) {
+            $this->initGrantsFromDb($data['grant_types']);
+        }
+
+        if (isset($data['identifier'])) {
+            $this->initIdentifierFromDb($data['identifier']);
+        }
     }
 
     /**
@@ -43,10 +49,14 @@ class Client extends \Nip\Records\Record implements ClientEntityInterface
         $this->identifier = $value;
     }
 
-    public function initIdentifierFromDb()
+    /**
+     * @param null $data
+     */
+    public function initIdentifierFromDb($data = null)
     {
-        if (!empty($this->_data['identifier'])) {
-            $this->setIdentifier($this->_data['identifier']);
+        $data = $data === null ? $this->_data['identifier'] : $data;
+        if (!empty($data)) {
+            $this->setIdentifier($data);
         }
     }
 
