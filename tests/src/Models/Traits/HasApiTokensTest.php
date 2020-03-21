@@ -20,8 +20,7 @@ class HasApiTokensTest extends AbstractTest
 
     public function testTokenCanBeCreated()
     {
-        $container = new Container;
-        Container::setInstance($container);
+        $container = Container::getInstance();
 
         $factory = m::mock();
         $factory->shouldReceive('make')->once()->with('users|1', 'name', ['scopes']);
@@ -32,11 +31,7 @@ class HasApiTokensTest extends AbstractTest
         ModelLocator::set(Tokens::class, $tokens);
 
         $user = new User();
+        $user->setIdentifier('users|1');
         $user->createToken('name', ['scopes']);
-    }
-
-    public function tearDown()
-    {
-        m::close();
     }
 }

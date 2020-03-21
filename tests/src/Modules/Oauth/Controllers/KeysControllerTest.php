@@ -16,10 +16,9 @@ class KeysControllerTest extends AbstractTest
 {
     public function testIndex()
     {
-        $container = new Container();
+        $container = Container::getInstance();
         $container->set('hello.keys.public', CryptHelper::makeCryptKey('public'));
-        Container::setInstance($container);
-
+        
         $controller = new KeysController();
         /** @var JsonResponse $response */
         $response = $controller->callAction('index');

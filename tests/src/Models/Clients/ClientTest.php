@@ -16,8 +16,10 @@ class ClientTest extends AbstractTest
     public function testInitIdentifierFromDB()
     {
         $client = new Client();
-        $client->writeData(['id' => 9, 'identifier' => '']);
         self::assertGreaterThan('10', strlen($client->getIdentifier()));
+
+        $client->writeData(['id' => 9, 'identifier' => '']);
+        self::assertEmpty($client->getIdentifier());
 
         $client->writeData(['id' => 9, 'identifier' => '9999']);
         self::assertSame('9999', $client->getIdentifier());

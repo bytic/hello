@@ -31,11 +31,11 @@ class Client extends \Nip\Records\Record implements ClientEntityInterface
     {
         parent::writeData($data);
 
-        if (isset($data['grant_types'])) {
+        if (isset($data['grant_types']) && !empty($data['grant_types'])) {
             $this->initGrantsFromDb($data['grant_types']);
         }
 
-        if (isset($data['identifier'])) {
+        if (isset($data['identifier']) && !empty($data['identifier'])) {
             $this->initIdentifierFromDb($data['identifier']);
         }
     }
@@ -66,6 +66,6 @@ class Client extends \Nip\Records\Record implements ClientEntityInterface
     public function setName($name)
     {
         $this->name = $name;
-        parent::setName($name);
+        parent::setDataValue('name', $name);
     }
 }

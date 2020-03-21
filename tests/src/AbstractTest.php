@@ -2,6 +2,7 @@
 
 namespace ByTIC\Hello\Tests;
 
+use Mockery as m;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -10,4 +11,10 @@ use PHPUnit\Framework\TestCase;
  */
 abstract class AbstractTest extends TestCase
 {
+
+    public function tearDown()
+    {
+        parent::tearDown();
+        m::close();
+    }
 }

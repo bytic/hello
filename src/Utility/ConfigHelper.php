@@ -28,7 +28,10 @@ class ConfigHelper
         if (static::$config !== null) {
             return static::$config->get($key, $default);
         }
-        if (!function_exists('config') || !function_exists('app')) {
+        if (!function_exists('app')) {
+            return $default;
+        }
+        if (!function_exists('config') || !app()->has('config')) {
             return $default;
         }
         return config($key, $default);

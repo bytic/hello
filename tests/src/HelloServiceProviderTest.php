@@ -45,9 +45,9 @@ class HelloServiceProviderTest extends AbstractTest
         $request = Request::create('/oauth/keys');
         self::assertSame(
             [
+                '_route' => 'oauth.keys',
                 'controller' => 'ByTIC\Hello\Modules\Oauth\Controllers\KeysController',
                 'action' => 'index',
-                '_route' => 'oauth.keys'
             ],
             $router->matchRequest($request)
         );
