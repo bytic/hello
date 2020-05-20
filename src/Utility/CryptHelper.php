@@ -44,6 +44,10 @@ class CryptHelper
         if (function_exists('Nip\storage_path')) {
             return \Nip\storage_path('hello/keys/' . $file);
         }
+
+        if (function_exists('storage_path')) {
+            return storage_path('hello/keys/' . $file);
+        }
         return PathHelper::keys($file);
     }
 
