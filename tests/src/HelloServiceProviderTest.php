@@ -18,6 +18,8 @@ use League\OAuth2\Server\Repositories\ScopeRepositoryInterface;
 use League\OAuth2\Server\Repositories\UserRepositoryInterface;
 use Nip\Records\RecordManager;
 use Nip\Request;
+use Nip\Router\Route\Route;
+use Nip\Router\RouteCollection;
 use Nip\Router\Router;
 
 /**
@@ -32,7 +34,9 @@ class HelloServiceProviderTest extends AbstractTest
         $provider = new HelloServiceProvider();
         $provider->setContainer($container);
 
-        $router = new Router();
+        $router = new Router(null, function() {
+            return new RouteCollection();
+        });
         $container->set('router', $router);
 
         $provider->boot();
@@ -42,7 +46,7 @@ class HelloServiceProviderTest extends AbstractTest
 
         self::assertTrue($routes->has('oauth.keys'));
 
-        $request = Request::create('/oauth/keys');
+        $request = \Nip\Http\Request::create('/oauth/keys');
         self::assertSame(
             [
                 '_route' => 'oauth.keys',

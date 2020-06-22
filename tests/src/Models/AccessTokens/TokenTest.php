@@ -8,6 +8,7 @@ use ByTIC\Hello\Models\Clients\Client;
 use ByTIC\Hello\Models\Clients\Clients;
 use ByTIC\Hello\Tests\AbstractTest;
 use Nip\Collections\Collection;
+use Nip\Records\Locator\ModelLocator;
 
 /**
  * Class TokenTest
@@ -46,7 +47,7 @@ class TokenTest extends AbstractTest
             'identifier',
             '999999'
         ])->andReturn(new Collection([new Client()]));
-        $tokens->getRelation('Client')->setWith($clients);
+        ModelLocator::set(Clients::class, $clients);
 
         $token = $tokens->getNew();
         $token->client_id = '999999';

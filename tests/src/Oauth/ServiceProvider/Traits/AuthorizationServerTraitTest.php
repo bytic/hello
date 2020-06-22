@@ -18,11 +18,16 @@ class AuthorizationServerTraitTest extends AbstractTest
 
     public function testRegisterAuthorizationServer()
     {
-        $provider = new HelloServiceProvider();
-        $provider->setContainer(new Container());
+        /** @var m\Mock|HelloServiceProvider $provider */
+        $provider = \Mockery::mock(HelloServiceProvider::class)->makePartial()->shouldAllowMockingProtectedMethods();
+        $provider->shouldReceive('createAuthorizationServer')->andReturn(\Mockery::mock(AuthorizationServer::class));
+        $provider->shouldReceive('registerGrants');
+
+        $container = new Container();
+        $provider->setContainer($container);
         $provider->registerAuthorizationServer();
 
-        self::assertInstanceOf(AuthorizationServer::class, $provider->getContainer()->get('hello.server'));
+        self::assertInstanceOf(AuthorizationServer::class, $container->get('hello.server'));
     }
 
 }
