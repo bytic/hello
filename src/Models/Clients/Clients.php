@@ -23,22 +23,17 @@ class Clients extends \Nip\Records\RecordManager implements ClientRepositoryInte
     /**
      * {@inheritdoc}
      */
-    public function getClientEntity(
-        $clientIdentifier,
-        $grantType = null,
-        $clientSecret = null,
-        $mustValidateSecret = true
-    ) {
-        // First, we will verify that the client exists
+    public function getClientEntity($clientIdentifier)
+    {
         $client = $this->findOneByIdentifier($clientIdentifier);
 
-        if (!$client || !$client->handlesGrant($grantType)) {
-            return;
-        }
-
-        if ($mustValidateSecret && !$client->validateSecret($clientSecret)) {
-            return;
-        }
+//        if (!$client || !$client->handlesGrant($grantType)) {
+//            return;
+//        }
+//
+//        if ($mustValidateSecret && !$client->validateSecret($clientSecret)) {
+//            return;
+//        }
         return $client;
     }
 

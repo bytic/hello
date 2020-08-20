@@ -2,11 +2,12 @@
 
 namespace ByTIC\Hello\Models\AccessTokens;
 
-use League\OAuth2\Server\Entities\ClientEntityInterface;
-use League\OAuth2\Server\Entities\Traits\EntityTrait;
-use League\OAuth2\Server\Entities\Traits\AccessTokenTrait;
-use League\OAuth2\Server\Entities\Traits\TokenEntityTrait;
+use DateTimeImmutable;
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
+use League\OAuth2\Server\Entities\ClientEntityInterface;
+use League\OAuth2\Server\Entities\Traits\AccessTokenTrait;
+use League\OAuth2\Server\Entities\Traits\EntityTrait;
+use League\OAuth2\Server\Entities\Traits\TokenEntityTrait;
 
 /**
  * Class Token
@@ -27,24 +28,6 @@ class Token extends \Nip\Records\Record implements AccessTokenEntityInterface
         setUserIdentifier as setUserIdentifierTrait;
     }
     use AccessTokenTrait;
-
-    /**
-     * @inheritDoc
-     */
-    public function writeData($data = false)
-    {
-        parent::writeData($data);
-        if (isset($data['expires_at'])) {
-            $date = new \DateTime($data['expires_at']);
-            $this->setExpiryDateTime($date);
-        }
-        if (isset($data['identifier'])) {
-            $this->setIdentifier($data['identifier']);
-        }
-        if (isset($data['user_id'])) {
-            $this->setUserIdentifier($data['user_id']);
-        }
-    }
 
     /**
      * @param ClientEntityInterface $clientEntity
@@ -80,12 +63,31 @@ class Token extends \Nip\Records\Record implements AccessTokenEntityInterface
     }
 
     /**
+     * @inheritDoc
+     */
+    public function setExpiresAt($value)
+    {
+        $date = new DateTimeImmutable($value);
+        $this->setExpiryDateTime($date);
+        $this->setDataValue('expires_at', $value);
+    }
+
+    /**
+     * @param $identifier
+     */
+    public function setUserId($identifier)
+    {
+        $this->setUserIdentifier($identifier);
+    }
+
+
+    /**
      * @param int|string|null $identifier
      */
     public function setUserIdentifier($identifier)
     {
         $this->setUserIdentifierTrait($identifier);
-        $this->user_id = $this->getUserIdentifier();
+        $this->setDataValue('user_id', $this->getUserIdentifier());
     }
 
     /**

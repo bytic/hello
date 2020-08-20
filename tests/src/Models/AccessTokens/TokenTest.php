@@ -35,6 +35,42 @@ class TokenTest extends AbstractTest
         self::assertArrayHasKey('identifier', $data);
     }
 
+    public function test_setUserIdentifier_property()
+    {
+        $token = new Token();
+        $token->user_id = 3;
+
+        self::assertSame(3, $token->getUserIdentifier());
+        self::assertSame(3, $token->getAttribute('user_id'));
+    }
+
+    public function test_setUserIdentifier_writeData()
+    {
+        $token = new Token();
+        $token->writeData(['user_id' => 3]);
+
+        self::assertSame(3, $token->getUserIdentifier());
+        self::assertSame(3, $token->getAttribute('user_id'));
+    }
+
+    public function test_setExpiresAt_property()
+    {
+        $token = new Token();
+        $token->expires_at = '2030-09-09';
+
+        self::assertSame('2030-09-09', $token->getExpiryDateTime()->format('Y-m-d'));
+        self::assertSame('2030-09-09', $token->getAttribute('expires_at'));
+    }
+
+    public function test_setExpiresAt_writeData()
+    {
+        $token = new Token();
+        $token->writeData(['expires_at' => '2030-09-09']);
+
+        self::assertSame('2030-09-09', $token->getExpiryDateTime()->format('Y-m-d'));
+        self::assertSame('2030-09-09', $token->getAttribute('expires_at'));
+    }
+
     public function testGetClient()
     {
         /** @var Tokens $tokens */
@@ -54,13 +90,5 @@ class TokenTest extends AbstractTest
 
         $client = $token->getClient();
         self::assertInstanceOf(Client::class, $client);
-    }
-
-    public function testGetUserIdentifierFromData()
-    {
-        $token = new Token();
-        $token->writeData(['user_id' => 99]);
-
-        self::assertEquals(99, $token->getUserIdentifier());
     }
 }
