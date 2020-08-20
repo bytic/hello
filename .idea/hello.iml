@@ -34,6 +34,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/bytic/locale-detector" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bytic/logger" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bytic/mail" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/bytic/migrations" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bytic/mvc" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bytic/newrelic" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bytic/orm" />
@@ -47,12 +48,9 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/bytic/translation" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bytic/utility" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bytic/view" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/cakephp/cache" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/cakephp/collection" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/cakephp/core" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/cakephp/database" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/cakephp/datasource" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/cakephp/log" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/cakephp/utility" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/container-interop/container-interop" />
@@ -67,6 +65,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/html2text/html2text" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/hybridauth/hybridauth" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/kylekatarnls/update-helper" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laminas/laminas-diactoros" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laminas/laminas-zendframework-bridge" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/lcobucci/jwt" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/container" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/event" />
@@ -81,6 +81,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/myclabs/deep-copy" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nesbot/carbon" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nikic/php-parser" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/odan/phinx-migrations-generator" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/oscarotero/middleland" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/paragonie/random_compat" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/paypal/rest-api-sdk-php" />
@@ -108,6 +109,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/simple-cache" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/ramsey/collection" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/ramsey/uuid" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/riimu/kit-phpencoder" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/robmorgan/phinx" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/code-unit" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/code-unit-reverse-lookup" />
@@ -135,6 +137,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/console" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/debug" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/dependency-injection" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/deprecation-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/error-handler" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/event-dispatcher" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/event-dispatcher-contracts" />
@@ -168,11 +171,9 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/var-dumper" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/var-exporter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/webpack-encore-bundle" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/yaml" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/theseer/tokenizer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/vlucas/phpdotenv" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/assert" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-diactoros" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

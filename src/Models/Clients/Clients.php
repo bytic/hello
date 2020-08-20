@@ -49,4 +49,13 @@ class Clients extends \Nip\Records\RecordManager implements ClientRepositoryInte
     {
         return 'oauth_clients';
     }
+
+    /**
+     * @inheritDoc
+     * @TODO add some validation logic
+     */
+    public function validateClient($clientIdentifier, $clientSecret, $grantType)
+    {
+        return true;
+    }
 }

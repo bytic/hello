@@ -5,12 +5,11 @@ namespace ByTIC\Hello\Models\Clients\PersonalAccess;
 use ByTIC\Hello\Models\AccessTokens\Token;
 use ByTIC\Hello\Models\Clients\Client;
 use ByTIC\Hello\Utility\ModelsHelper;
-use Firebase\JWT\JWT;
-use League\OAuth2\Server\AuthorizationServer;
+use Laminas\Diactoros\Response;
+use Laminas\Diactoros\ServerRequest;
 use Lcobucci\JWT\Parser as JwtParser;
+use League\OAuth2\Server\AuthorizationServer;
 use Nip\Container\Container;
-use Zend\Diactoros\ServerRequest;
-use Zend\Diactoros\Response;
 
 /**
  * Class TokenFactory
