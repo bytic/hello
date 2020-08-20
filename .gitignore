@@ -1,8 +1,11 @@
+.idea/copyright/
+.idea/workspace.xml
+.idea/usage.statistics.xml
 
+.phpunit.result.cache
+.rnd
 
 tests/_output/*
 vendor/*
-.idea/workspace.xml
-/.idea/usage.statistics.xml
+
 composer.lock
-.idea/copyright/

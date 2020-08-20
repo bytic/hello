@@ -75,7 +75,7 @@ class Token extends \Nip\Records\Record implements AccessTokenEntityInterface
      */
     public function setIdentifier($value)
     {
-        $this->_data['identifier'] = $value;
+        $this->setDataValue('identifier', $value);
         $this->setIdentifierTrait($value);
     }
 

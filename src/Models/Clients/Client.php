@@ -45,7 +45,7 @@ class Client extends \Nip\Records\Record implements ClientEntityInterface
      */
     public function setIdentifier($value)
     {
-        $this->_data['identifier'] = $value;
+        $this->setDataValue('identifier', $value);
         $this->identifier = $value;
     }
 
