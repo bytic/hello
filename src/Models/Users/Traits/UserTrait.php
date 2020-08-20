@@ -36,20 +36,23 @@ trait UserTrait
 
     public function doAuthentication()
     {
-        $token = $this->token();
-        $token->setPrivateKey(app('hello.keys.private'));
-        $this->access_token = $token->getIdentifier();
-        $this->access_jwt = $token->__toString();
+        $this->initAccessToken();
         $this->doAuthenticationTrait();
     }
 
     public function checkAccessToken()
     {
         if (empty($this->access_token)) {
-            $token = $this->token();
-            $this->access_token = $token->getIdentifier();
-            $this->access_jwt = $token->convertToJWT(app('hello.keys.private'))->__toString();
+            $this->initAccessToken();
         }
+    }
+
+    protected function initAccessToken()
+    {
+        $token = $this->token();
+        $token->setPrivateKey(app('hello.keys.private'));
+        $this->access_token = $token->getIdentifier();
+        $this->access_jwt = $token->__toString();
     }
 
     protected function initIdentifier()
