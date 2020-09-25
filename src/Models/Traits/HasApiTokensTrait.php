@@ -4,7 +4,6 @@ namespace ByTIC\Hello\Models\Traits;
 
 use ByTIC\Hello\Models\AccessTokens\Token;
 use ByTIC\Hello\Models\Clients\PersonalAccess\TokenFactory;
-use ByTIC\Hello\Utility\ModelsHelper;
 use Nip\Container\Container;
 
 /**

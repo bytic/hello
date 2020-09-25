@@ -22,6 +22,9 @@ use Nip\Records\RecordManager;
  */
 class ModelsHelper
 {
+
+    protected static $resolved = [];
+
     protected static $repositories = [
         AccessTokenRepositoryInterface::class => Tokens::class,
         ClientRepositoryInterface::class => Clients::class,
@@ -44,7 +47,7 @@ class ModelsHelper
      */
     public static function useClientsManager(RecordManager $manager)
     {
-        ModelLocator::set(Clients::class, $manager);
+        static::setRepository(ClientRepositoryInterface::class, $manager);
     }
 
     /**
@@ -64,20 +67,53 @@ class ModelsHelper
     }
 
     /**
-     * @param $alias
-     * @return \Nip\Records\AbstractModels\RecordManager
-     */
-    protected static function getRepository($alias)
-    {
-        $class = static::$repositories[$alias];
-        return ModelLocator::get($class);
-    }
-
-    /**
      * @return array
      */
     public static function repositories()
     {
         return static::$repositories;
+    }
+
+    /**
+     * @return array
+     */
+    public static function reset()
+    {
+        return static::$resolved =[];
+    }
+
+    /**
+     * @param $alias
+     * @return \Nip\Records\AbstractModels\RecordManager
+     */
+    protected static function getRepository($alias)
+    {
+        if (!isset(static::$resolved[$alias])) {
+            static::$resolved[$alias] = static::generateRepository($alias);
+        }
+        return static::$resolved[$alias];
+    }
+
+    /**
+     * @param $interface
+     * @return \Nip\Records\AbstractModels\RecordManager
+     */
+    protected static function generateRepository($interface)
+    {
+        $class = ConfigHelper::get('repositories.'.$interface, false);
+        if (!empty($class) && class_exists($class)) {
+            return ModelLocator::get($class);
+        }
+        return ModelLocator::get(static::$repositories[$interface]);
+    }
+
+    /**
+     * @param $interface
+     * @param RecordManager $manager
+     */
+    protected static function setRepository($interface, $manager)
+    {
+        static::$resolved[$interface] = $manager;
+        ModelLocator::set($interface, $manager);
     }
 }
