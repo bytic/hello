@@ -18,8 +18,8 @@ return [
     | oauth service are.
     |
     */
-    'encryption_key' => env('OAUTH_AUTHORIZATION_KEY', storage_path('oauth')),
-    'key_path' => env('OAUTH_KEYS_PATH', storage_path('oauth')),
+    'encryption_key' => env('OAUTH_AUTHORIZATION_KEY', dirname(__DIR__) . '/storage/hello/keys'),
+    'key_path' => env('OAUTH_KEYS_PATH', dirname(__DIR__) . '/storage/hello/keys'),
 
     /*
     |--------------------------------------------------------------------------
