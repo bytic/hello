@@ -8,8 +8,7 @@ namespace ByTIC\Hello\Utility;
  */
 class ClientsHelper
 {
-
-    const PERSONAL_ACCESS_REDIRECT_URI = 'INTERNAL_API';
+    public const PERSONAL_ACCESS_REDIRECT_URI = 'INTERNAL_API';
 
     /**
      * The personal access token client ID.
@@ -27,6 +26,6 @@ class ClientsHelper
     public static function personalAccessClientId($clientId)
     {
         static::$personalAccessClientId = $clientId;
-        return new static;
+        return new static();
     }
 }

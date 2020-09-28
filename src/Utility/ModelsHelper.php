@@ -22,7 +22,6 @@ use Nip\Records\RecordManager;
  */
 class ModelsHelper
 {
-
     protected static $resolved = [];
 
     protected static $repositories = [
@@ -100,7 +99,7 @@ class ModelsHelper
      */
     protected static function generateRepository($interface)
     {
-        $class = ConfigHelper::get('repositories.'.$interface, false);
+        $class = ConfigHelper::get('repositories.' . $interface, false);
         if (!empty($class) && class_exists($class)) {
             return ModelLocator::get($class);
         }

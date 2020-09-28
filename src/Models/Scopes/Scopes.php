@@ -12,7 +12,6 @@ use League\OAuth2\Server\Repositories\ScopeRepositoryInterface;
  */
 class Scopes extends \Nip\Records\RecordManager implements ScopeRepositoryInterface
 {
-
     /**
      * Return information about a scope.
      *

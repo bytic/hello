@@ -17,7 +17,6 @@ use Nip\Records\Locator\ModelLocator;
  */
 class HasApiTokensTest extends AbstractTest
 {
-
     public function testTokenCanBeCreated()
     {
         $container = Container::getInstance();
