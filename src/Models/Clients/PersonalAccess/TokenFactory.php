@@ -17,7 +17,6 @@ use Nip\Container\Container;
  */
 class TokenFactory
 {
-
     /**
      * The authorization server instance.
      *
@@ -97,7 +96,8 @@ class TokenFactory
     {
         return json_decode(
             $this->server->respondToAccessTokenRequest(
-                $request, new Response
+                $request,
+                new Response()
             )->getBody()->__toString(),
             true
         );

@@ -16,7 +16,8 @@ use Nip\Utility\Traits\SingletonTrait;
  */
 class Users extends \Nip\Records\RecordManager implements UserRepositoryInterface
 {
-    use SingletonTrait, UsersTrait;
+    use SingletonTrait;
+    use UsersTrait;
 
     /**
      * Get a user entity.

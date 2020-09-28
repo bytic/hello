@@ -34,7 +34,7 @@ class HelloServiceProviderTest extends AbstractTest
         $provider = new HelloServiceProvider();
         $provider->setContainer($container);
 
-        $router = new Router(null, function() {
+        $router = new Router(null, function () {
             return new RouteCollection();
         });
         $container->set('router', $router);

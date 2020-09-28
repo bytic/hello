@@ -10,7 +10,6 @@ namespace ByTIC\Hello\Models\Clients\Traits;
  */
 trait ClientHasRedirectTrait
 {
-
     /**
      * @param $redirect
      * @return string

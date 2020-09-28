@@ -12,8 +12,7 @@ use PHPUnit\Framework\TestCase;
  */
 abstract class AbstractTest extends TestCase
 {
-
-    public function tearDown() : void
+    public function tearDown(): void
     {
         parent::tearDown();
         ModelLocator::instance()->getModelRegistry()->clear();

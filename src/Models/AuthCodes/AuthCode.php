@@ -13,5 +13,7 @@ use League\OAuth2\Server\Entities\Traits\TokenEntityTrait;
  */
 class AuthCode extends \Nip\Records\Record implements AuthCodeEntityInterface
 {
-    use AuthCodeTrait, EntityTrait, TokenEntityTrait;
+    use AuthCodeTrait;
+    use EntityTrait;
+    use TokenEntityTrait;
 }

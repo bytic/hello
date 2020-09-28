@@ -12,7 +12,6 @@ use ByTIC\Hello\Utility\PathHelper;
  */
 trait HasHelloAdminFolderTrait
 {
-
     public function addHelloAdminNamespacePath()
     {
         $this->addPath(PathHelper::views('/Admin'));

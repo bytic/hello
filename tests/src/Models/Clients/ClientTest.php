@@ -12,7 +12,6 @@ use ByTIC\Hello\Tests\AbstractTest;
  */
 class ClientTest extends AbstractTest
 {
-
     public function testInitIdentifierFromDB()
     {
         $client = new Client();

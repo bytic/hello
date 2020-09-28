@@ -37,7 +37,7 @@ class PathHelper
     public static function viewsTheme($theme = null)
     {
         $theme = $theme ? $theme : ThemeHelper::theme();
-        return static::viewsBase() . DIRECTORY_SEPARATOR . $theme. DIRECTORY_SEPARATOR.'views';
+        return static::viewsBase() . DIRECTORY_SEPARATOR . $theme . DIRECTORY_SEPARATOR . 'views';
     }
 
     /**
