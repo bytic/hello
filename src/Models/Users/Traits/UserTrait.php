@@ -21,7 +21,8 @@ trait UserTrait
     use AbstractUserTrait {
         doAuthentication as doAuthenticationTrait;
     }
-    use HasApiTokensTrait, EntityTrait;
+    use HasApiTokensTrait;
+    use EntityTrait;
 
     /**
      * @return string

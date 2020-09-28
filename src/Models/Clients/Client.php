@@ -13,7 +13,8 @@ use League\OAuth2\Server\Entities\Traits\EntityTrait;
  */
 class Client extends \Nip\Records\Record implements ClientEntityInterface
 {
-    use ClientTrait, EntityTrait;
+    use ClientTrait;
+    use EntityTrait;
     use Traits\ClientHasGrantsTrait;
     use Traits\ClientHasSecretTrait;
     use Traits\ClientHasRedirectTrait;

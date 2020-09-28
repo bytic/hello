@@ -15,7 +15,6 @@ use Nip\Container\Container;
  */
 class AuthorizationServerTraitTest extends AbstractTest
 {
-
     public function testRegisterAuthorizationServer()
     {
         /** @var m\Mock|HelloServiceProvider $provider */
@@ -29,5 +28,4 @@ class AuthorizationServerTraitTest extends AbstractTest
 
         self::assertInstanceOf(AuthorizationServer::class, $container->get('hello.server'));
     }
-
 }

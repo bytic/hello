@@ -13,7 +13,7 @@ use Nip\Records\Record;
  */
 class UsersResolvers
 {
-    const SEPARATOR = '|';
+    public const SEPARATOR = '|';
 
     /**
      * @param Record|UserEntityInterface|UserTrait $entity

@@ -12,5 +12,6 @@ use League\OAuth2\Server\Entities\RefreshTokenEntityInterface;
  */
 class RefreshToken extends \Nip\Records\Record implements RefreshTokenEntityInterface
 {
-    use EntityTrait, RefreshTokenTrait;
+    use EntityTrait;
+    use RefreshTokenTrait;
 }

@@ -10,7 +10,7 @@ use Nip\Config\Config;
  */
 class ConfigHelper
 {
-    const CONFIG_NAMESPACE = 'hello';
+    public const CONFIG_NAMESPACE = 'hello';
 
     /**
      * @var null|Config

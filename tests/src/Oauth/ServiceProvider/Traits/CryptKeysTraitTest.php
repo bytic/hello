@@ -14,7 +14,6 @@ use Nip\Container\Container;
  */
 class CryptKeysTraitTest extends AbstractTest
 {
-
     public function testCanUseCryptoKeysFromConfig()
     {
         $config = m::mock(ConfigHelper::class)->makePartial();

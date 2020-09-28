@@ -12,7 +12,6 @@ use ByTIC\Hello\Tests\AbstractTest;
  */
 class UsersResolversTest extends AbstractTest
 {
-
     public function testIdentifier()
     {
         $manager = Users::instance();

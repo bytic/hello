@@ -16,7 +16,6 @@ use Nip\Records\Locator\ModelLocator;
  */
 class TokenTest extends AbstractTest
 {
-
     public function testSetIdentifier()
     {
         /** @var Clients $tokens */

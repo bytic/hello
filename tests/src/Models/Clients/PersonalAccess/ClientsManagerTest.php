@@ -16,7 +16,6 @@ use Nip\Collections\Collection;
  */
 class ClientsManagerTest extends AbstractTest
 {
-
     public function testGetWithPersonalAccessClientId()
     {
         $client = new Client();
@@ -98,7 +97,7 @@ class ClientsManagerTest extends AbstractTest
         ];
     }
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
 
