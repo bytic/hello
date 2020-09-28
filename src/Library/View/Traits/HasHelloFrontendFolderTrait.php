@@ -15,5 +15,6 @@ trait HasHelloFrontendFolderTrait
     public function addHelloFrontendNamespacePath()
     {
         $this->addPath(PathHelper::views('/Frontend'), 'Hello');
+        $this->addPath(PathHelper::views('/Frontend'), 'HelloFrontend');
     }
 }

@@ -17,5 +17,6 @@ trait HasHelloAdminFolderTrait
     {
         $this->addPath(PathHelper::views('/Admin'));
         $this->addPath(PathHelper::views('/Admin'), 'Hello');
+        $this->addPath(PathHelper::views('/Admin'), 'HelloAdmin');
     }
 }

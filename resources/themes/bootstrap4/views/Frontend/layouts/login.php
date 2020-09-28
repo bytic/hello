@@ -3,11 +3,11 @@
 <?php $this->load("/modules/head"); ?>
 <body class="page-<?php echo $this->controller; ?>-<?php echo $this->action; ?>">
 <?php $this->load('/modules/header-body'); ?>
-<?php $this->load('/modules/header'); ?>
+<?php $this->load('HelloFrontend::/modules/header'); ?>
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-4 col-md-offset-4" >
+    <div class="row justify-content-center">
+        <div class="col col-lg-6 col-md-7" >
             <?php $this->render("content"); ?>
         </div>
     </div>
