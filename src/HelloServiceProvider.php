@@ -52,10 +52,14 @@ class HelloServiceProvider extends AbstractSignatureServiceProvider implements B
 
     protected function registerResources()
     {
+        $container= $this->getContainer();
+        if ($container->has('translation.languages') === false) {
+            return;
+        }
+        $languages = $container->get('translation.languages');
         $folder = dirname(__DIR__) . '/resources/lang/';
-        $languages = $this->getContainer()->get('translation.languages');
 
-        $translator = $this->getContainer()->get('translator');
+        $translator = $container->get('translator');
 
         foreach ($languages as $language) {
             $path = $folder . $language;
