@@ -175,6 +175,7 @@
       <path value="$PROJECT_DIR$/vendor/bytic/migrations" />
       <path value="$PROJECT_DIR$/vendor/odan/phinx-migrations-generator" />
       <path value="$PROJECT_DIR$/vendor/sebastian/cli-parser" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-client-contracts" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />

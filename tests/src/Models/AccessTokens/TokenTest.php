@@ -7,6 +7,7 @@ use ByTIC\Hello\Models\AccessTokens\Tokens;
 use ByTIC\Hello\Models\Clients\Client;
 use ByTIC\Hello\Models\Clients\Clients;
 use ByTIC\Hello\Tests\AbstractTest;
+use Mockery\Mock;
 use Nip\Collections\Collection;
 use Nip\Records\Locator\ModelLocator;
 
@@ -16,9 +17,9 @@ use Nip\Records\Locator\ModelLocator;
  */
 class TokenTest extends AbstractTest
 {
-    public function testSetIdentifier()
+    public function test_setIdentifier()
     {
-        /** @var Clients $tokens */
+        /** @var Clients|Mock $tokens */
         $tokens = \Mockery::mock(Tokens::class)->makePartial();
         $tokens->shouldReceive('getFields')->andReturn(['id', 'identifier', 'secret']);
         $tokens->shouldReceive('getPrimaryKey')->andReturn('id');
@@ -70,9 +71,9 @@ class TokenTest extends AbstractTest
         self::assertSame('2030-09-09', $token->getAttribute('expires_at'));
     }
 
-    public function testGetClient()
+    public function test_getClient()
     {
-        /** @var Tokens $tokens */
+        /** @var Tokens|Mock $tokens */
         $tokens = \Mockery::mock(Tokens::class)->makePartial();
         $tokens->shouldReceive('getPrimaryKey')->andReturn('id');
         $tokens->shouldReceive('getModel')->andReturn(Token::class);
@@ -89,5 +90,18 @@ class TokenTest extends AbstractTest
 
         $client = $token->getClient();
         self::assertInstanceOf(Client::class, $client);
+    }
+
+    public function test_getScopes()
+    {
+        $token = new Token();
+        $scopes = $token->getScopes();
+        self::assertIsArray($scopes);
+        self::assertCount(0, $scopes);
+
+        $token->writeData(['scopes' => '']);
+        $scopes = $token->getScopes();
+        self::assertIsArray($scopes);
+        self::assertCount(0, $scopes);
     }
 }

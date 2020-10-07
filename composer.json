@@ -22,7 +22,6 @@
     }
   },
   "require": {
-    "php": ">=7.1",
     "ext-json": "*",
     "bytic/auth": "^0.9|^1.0",
     "bytic/translation": "^0.9|^1.0",

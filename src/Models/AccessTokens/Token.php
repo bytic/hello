@@ -2,6 +2,7 @@
 
 namespace ByTIC\Hello\Models\AccessTokens;
 
+use ByTIC\Hello\Utility\ModelsHelper;
 use DateTimeImmutable;
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
@@ -24,8 +25,8 @@ class Token extends \Nip\Records\Record implements AccessTokenEntityInterface
         setIdentifier as setIdentifierTrait;
     }
     use TokenEntityTrait {
-        getClient as getClientTrait;
-        setUserIdentifier as setUserIdentifierTrait;
+        TokenEntityTrait::getClient as getClientTrait;
+        TokenEntityTrait::setUserIdentifier as setUserIdentifierTrait;
     }
     use AccessTokenTrait;
 
@@ -41,7 +42,7 @@ class Token extends \Nip\Records\Record implements AccessTokenEntityInterface
     /**
      * @inheritDoc
      */
-    public function getClient()
+    public function getClient(): ClientEntityInterface
     {
         $client = $this->getClientTrait();
         if ($client instanceof ClientEntityInterface) {
@@ -56,10 +57,10 @@ class Token extends \Nip\Records\Record implements AccessTokenEntityInterface
     /**
      * @inheritDoc
      */
-    public function setIdentifier($value)
+    public function setIdentifier($identifier)
     {
-        $this->setDataValue('identifier', $value);
-        $this->setIdentifierTrait($value);
+        $this->setDataValue('identifier', $identifier);
+        $this->setIdentifierTrait($identifier);
     }
 
     /**
@@ -67,6 +68,7 @@ class Token extends \Nip\Records\Record implements AccessTokenEntityInterface
      */
     public function setExpiresAt($value)
     {
+        /** @noinspection PhpUnhandledExceptionInspection */
         $date = new DateTimeImmutable($value);
         $this->setExpiryDateTime($date);
         $this->setDataValue('expires_at', $value);
@@ -88,6 +90,30 @@ class Token extends \Nip\Records\Record implements AccessTokenEntityInterface
     {
         $this->setUserIdentifierTrait($identifier);
         $this->setDataValue('user_id', $this->getUserIdentifier());
+    }
+
+    /**
+     * @param $scopes
+     */
+    public function setScopes($scopes)
+    {
+        if (is_string($scopes)) {
+            $this->addScopesFromString($scopes);
+            return;
+        }
+        $this->scopes = $scopes;
+    }
+
+    /**
+     * @param $scopes
+     */
+    public function addScopesFromString($scopes)
+    {
+        $scopes = array_filter(explode(',', $scopes));
+        foreach ($scopes as $key => $scope) {
+            $scopes[$key] = ModelsHelper::scopes()->getScopeEntityByIdentifier($scope);
+        }
+        $this->addScopes($scopes);
     }
 
     /**
