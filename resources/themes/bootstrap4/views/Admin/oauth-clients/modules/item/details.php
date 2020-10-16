@@ -19,7 +19,7 @@ $itemManager = $item->getManager();
             <?php echo $itemManager->getLabel('identifier'); ?>:
         </td>
         <td class="value">
-                <?php echo $item->getIdentifier(); ?>
+            <?php echo $item->getIdentifier(); ?>
         </td>
     </tr>
     <tr>
@@ -28,6 +28,9 @@ $itemManager = $item->getManager();
         </td>
         <td class="value">
             <?php echo $item->getSecret(); ?>
+            <a href="<?php echo $item->compileURL('regenerateSecret'); ?>" class="btn btn-info btn-xs float-right">
+                Reset
+            </a>
         </td>
     </tr>
     <tr>
