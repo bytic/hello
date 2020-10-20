@@ -110,6 +110,15 @@ class Tokens extends \Nip\Records\RecordManager implements AccessTokenRepository
         return $collection->current();
     }
 
+    public function getQueryModelData($model)
+    {
+        $data = parent::getQueryModelData($model);
+        if (isset($data['scopes']) && is_array($data['scopes'])) {
+            $data['scopes'] = implode(',', $data['scopes']);
+        }
+        return $data;
+    }
+
     protected function initRelations()
     {
         parent::initRelations();

@@ -7,8 +7,7 @@ use ByTIC\Hello\Models\AccessTokens\Tokens;
 use ByTIC\Hello\Models\Clients\Client;
 use ByTIC\Hello\Tests\AbstractTest;
 use ByTIC\Hello\Tests\Fixtures\Models\Users\User;
-use Nip\Database\Adapters\MySQLi;
-use Nip\Database\Connections\Connection;
+use Mockery\Mock;
 use Nip\Database\Query\Condition\AndCondition;
 use Nip\Database\Query\Select;
 use Nip\Records\Collections\Collection;
@@ -58,5 +57,29 @@ class TokensTest extends AbstractTest
 
         $where = $query->getPart('where');
         self::assertInstanceOf(AndCondition::class, $where);
+    }
+
+    public function test_getQueryModelData()
+    {
+        $data = [
+            'id' => null,
+            'identifier' => null,
+            'user_id' => 9,
+            'client_id' => null,
+            'name' => null,
+            'scopes' => '',
+            'revoked' => null,
+            'expires_at' => null,
+            'created' => null,
+            'updated' => null
+        ];
+        /** @var Mock|Tokens $manager */
+        $manager = \Mockery::mock(Tokens::class)->makePartial();
+        $manager->setFields(array_keys($data));
+
+        $token = new Token();
+        $token->user_id = 9;
+
+        self::assertSame($data, $manager->getQueryModelData($token));
     }
 }
