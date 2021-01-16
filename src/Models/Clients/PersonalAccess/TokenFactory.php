@@ -7,7 +7,7 @@ use ByTIC\Hello\Models\Clients\Client;
 use ByTIC\Hello\Utility\ModelsHelper;
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\ServerRequest;
-use Lcobucci\JWT\Parser as JwtParser;
+use Lcobucci\JWT\Encoding\JoseEncoder;
 use League\OAuth2\Server\AuthorizationServer;
 use Nip\Container\Container;
 
@@ -40,11 +40,18 @@ class TokenFactory
      * @param \League\OAuth2\Server\AuthorizationServer $server
      * @param $client
      */
-    public function __construct(AuthorizationServer $server = null, $client = null, JwtParser $jwt = null)
+    public function __construct(AuthorizationServer $server = null, $client = null, \Lcobucci\JWT\Parser $jwt = null)
     {
         $this->server = $server ? $server : Container::getInstance()->get(AuthorizationServer::class);
         $this->client = $client ? $client : ClientsManager::get();
-        $this->jwt = $jwt ? $jwt : new JwtParser();
+        if (!$jwt) {
+            if (class_exists(\Lcobucci\JWT\Parser::class)) {
+                $jwt = new \Lcobucci\JWT\Parser();
+            } else {
+                $jwt = new \Lcobucci\JWT\Token\Parser(new JoseEncoder());
+            }
+        }
+        $this->jwt = $jwt;
     }
 
 
