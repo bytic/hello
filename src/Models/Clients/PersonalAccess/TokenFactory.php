@@ -8,6 +8,7 @@ use ByTIC\Hello\Utility\ModelsHelper;
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\ServerRequest;
 use Lcobucci\JWT\Encoding\JoseEncoder;
+use Lcobucci\JWT\Token\RegisteredClaims;
 use League\OAuth2\Server\AuthorizationServer;
 use Nip\Container\Container;
 
@@ -80,7 +81,7 @@ class TokenFactory
      * @param Client $client
      * @param mixed $userId
      * @param array $scopes
-     * @return Request
+     * @return ServerRequest|\Psr\Http\Message\ServerRequestInterface
      */
     protected function createRequest($client, $userId, array $scopes)
     {
@@ -96,7 +97,7 @@ class TokenFactory
     /**
      * Dispatch the given request to the authorization server.
      *
-     * @param Request $request
+     * @param ServerRequest $request
      * @return array
      */
     protected function dispatchRequestToAuthorizationServer(ServerRequest $request)
@@ -118,8 +119,10 @@ class TokenFactory
      */
     protected function findAccessToken(array $response)
     {
+        $token = $this->jwt->parse($response['access_token']);
+
         return ModelsHelper::accessTokens()->getByIdentifier(
-            $this->jwt->parse($response['access_token'])->getClaim('jti')
+            $token->claims()->get(RegisteredClaims::ID)
         );
     }
 }
