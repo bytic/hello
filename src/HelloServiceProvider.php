@@ -48,6 +48,16 @@ class HelloServiceProvider extends AbstractSignatureServiceProvider implements B
         (new RouteRegistrar($router))->all();
 
         $this->registerResources();
+        $this->registerMigrations();
+    }
+
+    protected function registerMigrations()
+    {
+        $container= $this->getContainer();
+        if ($container->has('migrations.migrator') === false) {
+            return;
+        }
+        $container->get('migrations.migrator')->path(dirname(__DIR__) . '/migrations/');
     }
 
     protected function registerResources()
