@@ -2,7 +2,7 @@
 
 namespace ByTIC\Hello\Library\View\Traits;
 
-use ByTIC\Hello\Utility\PathHelper;
+use ByTIC\Hello\Utility\ViewHelper;
 
 /**
  * Trait HasAdminBaseFolderTrait
@@ -14,8 +14,6 @@ trait HasHelloAdminFolderTrait
 {
     public function addHelloAdminNamespacePath()
     {
-        $this->addPath(PathHelper::views('/Admin'));
-        $this->addPath(PathHelper::views('/Admin'), 'Hello');
-        $this->addPath(PathHelper::views('/Admin'), 'HelloAdmin');
+        ViewHelper::registerAdminPaths($this);
     }
 }
