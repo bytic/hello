@@ -15,8 +15,6 @@ trait LoginFormTrait
         $this->removeClass('form-horizontal');
         $this->addClass('box', 'user-login');
 
-        $this->_trigger->setValue('login');
-
         $this->addInput('email', translator()->trans('email'), true)
             ->addPassword('password', translator()->trans('password'), true);
 
