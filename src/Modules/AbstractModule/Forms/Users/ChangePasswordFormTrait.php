@@ -54,7 +54,7 @@ trait ChangePasswordFormTrait
         }
 
         $hashCheck = $this->getModel()->checkSaltedPassword($passwordOld->getValue());
-        if ($hashCheck) {
+        if ($hashCheck === false) {
             $passwordOld->addError($this->getModelMessage('password_old.bad'));
         }
     }
