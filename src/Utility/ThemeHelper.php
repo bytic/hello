@@ -8,7 +8,7 @@ namespace ByTIC\Hello\Utility;
  */
 class ThemeHelper
 {
-    protected static $theme = 'bootstrap3';
+    protected static $theme = 'bootstrap5';
 
     /**
      * @param null $new
