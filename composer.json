@@ -28,7 +28,7 @@
     "bytic/router": "^0.9|^1.0",
     "bytic/form": "^0.9|^1.0",
     "bytic/view": "^0.9|^1.0",
-    "hybridauth/hybridauth": "^v2.12",
+    "hybridauth/hybridauth": "^v2.12|~3.0",
     "firebase/php-jwt": "~3.0|~4.0|~5.0",
     "league/oauth2-server": "^8.0",
     "phpseclib/phpseclib": "^2.0",
@@ -37,22 +37,8 @@
   },
   "require-dev": {
     "bytic/migrations": "^0.12",
-    "bytic/phpqatools": "^1.0",
-    "mockery/mockery": "^1.1"
+    "bytic/phpqatools": "^1.0.11"
   },
-  "scripts": {
-    "tests": [
-      "@analyse",
-      "@test"
-    ],
-    "test": [
-      "phpunit"
-    ],
-    "analyse": [
-      "@stan",
-      "@psalm"
-    ],
-    "stan": "phpstan analyse",
-    "psalm": "psalm --output-format=compact --find-dead-code --find-unused-psalm-suppress --long-progress "
-  }
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
