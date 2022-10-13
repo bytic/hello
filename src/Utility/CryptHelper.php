@@ -80,10 +80,10 @@ class CryptHelper
      */
     public static function makeCryptKey($type)
     {
-        $configKey = null;
+//        $configKey = null;
         $configKey = ConfigHelper::get($type . '_key');
 
-        $key = str_replace('\\n', "\n", $configKey);
+        $key = $configKey ? str_replace('\\n', "\n", $configKey) : null;
         if (!$key) {
             $path = CryptHelper::keyPath('oauth-' . $type . '.key');
             if (!file_exists($path)) {
