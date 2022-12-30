@@ -23,6 +23,7 @@
   },
   "require": {
     "ext-json": "*",
+    "bytic/package-base": "^1.0",
     "bytic/auth": "^0.9|^1.0",
     "bytic/translation": "^0.9|^1.0",
     "bytic/router": "^0.9|^1.0",
@@ -37,7 +38,7 @@
   },
   "require-dev": {
     "bytic/migrations": "^0.12",
-    "bytic/phpqatools": "^1.0.11"
+    "bytic/phpqatools": "^1.0"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,

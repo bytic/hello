@@ -1,0 +1,20 @@
+{
+  "name": "bytic-hello",
+  "version": "0.0.1",
+  "description": " ",
+  "private": true,
+  "author": "Gabriel Solomon",
+  "license": "proprietary",
+  "scripts": {
+    "dev": "yarn run development",
+    "development": "yarn encore dev",
+    "prod": "yarn run production",
+    "production": "yarn encore prod"
+  },
+  "dependencies": {
+    "@ladjs/bootstrap-social": "github:niftylettuce/bootstrap-social#gh-pages"
+  },
+  "devDependencies": {
+    "sportic-common-ui-build": "git+ssh://git@bitbucket.org:sportic/sportic-common-ui-build.git"
+  }
+}
