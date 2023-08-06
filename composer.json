@@ -24,20 +24,20 @@
   "require": {
     "ext-json": "*",
     "bytic/package-base": "^1.0",
-    "bytic/auth": "^0.9|^1.0",
-    "bytic/translation": "^0.9|^1.0",
-    "bytic/router": "^0.9|^1.0",
-    "bytic/form": "^0.9|^1.0",
-    "bytic/view": "^0.9|^1.0|^2.0",
+    "bytic/auth": "^1.0|^2.0",
+    "bytic/translation": "^1.0|^2.0",
+    "bytic/router": "^1.0|^2.0",
+    "bytic/form": "^1.0|^2.0",
+    "bytic/view": "^1.0|^2.0",
     "hybridauth/hybridauth": "^v2.12|~3.0",
-    "firebase/php-jwt": "~3.0|~4.0|~5.0",
+    "firebase/php-jwt": "~4.0|~5.0|~6.0",
     "league/oauth2-server": "^8.0",
-    "phpseclib/phpseclib": "^2.0",
+    "phpseclib/phpseclib": "^2.0|^3.0",
     "symfony/psr-http-message-bridge": "^1.0|^2.0",
-    "laminas/laminas-diactoros": "^2.3"
+    "laminas/laminas-diactoros": "^2.3|^3.0"
   },
   "require-dev": {
-    "bytic/migrations": "^0.12",
+    "bytic/migrations": "^0.12|^0.13",
     "bytic/phpqatools": "^1.0"
   },
   "minimum-stability": "dev",
