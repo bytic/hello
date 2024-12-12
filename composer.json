@@ -13,7 +13,10 @@
   "autoload": {
     "psr-4": {
       "ByTIC\\Hello\\": "src"
-    }
+    },
+    "classmap": [
+      "src/Library/Form"
+    ]
   },
   "autoload-dev": {
     "psr-4": {
