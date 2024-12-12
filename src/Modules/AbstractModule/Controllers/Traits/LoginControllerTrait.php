@@ -39,6 +39,7 @@ trait LoginControllerTrait
             $this->_getUser()->getManager()->compileURL('login')
         );
         $this->getView()->Meta()->prependTitle($this->getModelManager()->getLabel('login-title'));
+        $this->setLayout('login');
     }
 
     public function oauth()

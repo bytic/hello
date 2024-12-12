@@ -31,5 +31,6 @@ trait RecoverControllerTrait
 
         $this->forms['recover'] = $formsRecover;
         $this->_setMeta('recoverPassword');
+        $this->setLayout('login');
     }
 }

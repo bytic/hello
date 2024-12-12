@@ -14,5 +14,6 @@ trait LoggedInControllerTrait
 
     public function index()
     {
+        $this->setLayout('login');
     }
 }
