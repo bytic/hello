@@ -45,7 +45,9 @@ trait LoginControllerTrait
     public function oauth()
     {
         $jwt = $this->getRequest()->get('token');
+        app()->set('oauth.keys.public', file_get_contents(app('hello.keys.public')->getKeyPath()));
         $this->_getUser()->getManager()->authenticateWithToken($jwt);
+        parent::doSuccessRedirect('login');
     }
 
     /**

@@ -119,6 +119,9 @@ trait HasAuthenticationVariablesTrait
      */
     protected function decodeVariables($value)
     {
+        if (empty($value)) {
+            return null;
+        }
         return base64_decode(strtr($value, '$_-', '+/='));
     }
 
@@ -128,6 +131,9 @@ trait HasAuthenticationVariablesTrait
      */
     protected function encodeVariable($value)
     {
+        if (empty($value)) {
+            return null;
+        }
         return strtr(base64_encode($value), '+/=', '$_-');
     }
 

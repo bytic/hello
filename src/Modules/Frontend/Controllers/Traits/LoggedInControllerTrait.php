@@ -14,6 +14,17 @@ trait LoggedInControllerTrait
 
     public function index()
     {
+        $redirect = $this->getAuthenticationValue('redirect');
+        $this->payload()->with(
+            [
+                'sections' => mvc_sections()->getSections()->visibleIn('menu'),
+                'redirect' => $redirect,
+            ]);
         $this->setLayout('login');
+    }
+
+    public function thankYou()
+    {
+        $this->index();
     }
 }

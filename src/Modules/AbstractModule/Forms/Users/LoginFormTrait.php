@@ -35,12 +35,14 @@ trait LoginFormTrait
         }
 
         $password = $this->getElement('password');
-        if (!$email->isError() && !$password->isError()) {
-            $model = $this->getModel();
-            $request = ['email' => $email->getValue(), 'password' => $password->getValue()];
-            if (!$model->authenticate($request)) {
-                $email->addError($this->getModelMessage('login.error'));
-            }
+        if ($email->isError() || $password->isError()) {
+            return;
+        }
+        $model = $this->getModel();
+        $request = ['email' => $email->getValue(), 'password' => $password->getValue()];
+        if (!$model->authenticate($request)) {
+            $email->addError($this->getModelMessage('login.error'));
+            return;
         }
     }
 

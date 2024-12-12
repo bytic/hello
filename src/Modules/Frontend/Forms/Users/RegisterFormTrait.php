@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+namespace ByTIC\Hello\Modules\Frontend\Forms\Users;
+
+use ByTIC\GoogleRecaptcha\Utility\GoogleRecaptcha;
 use Nip\Records\Locator\ModelLocator;
 
 /**
@@ -17,7 +20,8 @@ trait RegisterFormTrait
         $this->initRegisterForm();
     }
 
-    protected function initRegisterForm() {
+    protected function initRegisterForm()
+    {
         $this->removeClass('form-horizontal');
         $this->addClass('box', 'user-register');
 
@@ -134,11 +138,15 @@ trait RegisterFormTrait
     }
 
     /**
-     * @return mixed
+     * @return void
      */
     protected function initRegisterFormRecapcha()
     {
-        return $this->add('g-recaptcha-response', 'recaptcha', 'recaptcha', true);
+        $siteKey = GoogleRecaptcha::getManager()->getSiteKey();
+        if (empty($siteKey)) {
+            return;
+        }
+        $this->add('g-recaptcha-response', 'recaptcha', 'recaptcha', true);
     }
 
     /**
