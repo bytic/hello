@@ -2,6 +2,7 @@
 
 namespace ByTIC\Hello\Models\Clients;
 
+use ByTIC\Hello\Models\Clients\Traits\ClientHasRedirectTrait;
 use ByTIC\Hello\Utility\RandomHelper;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Entities\Traits\ClientTrait;
@@ -13,14 +14,20 @@ use League\OAuth2\Server\Entities\Traits\EntityTrait;
  */
 class Client extends \Nip\Records\Record implements ClientEntityInterface
 {
-    use ClientTrait;
     use EntityTrait;
     use Traits\ClientHasGrantsTrait;
     use Traits\ClientHasSecretTrait;
-    use Traits\ClientHasRedirectTrait;
 
-    public function __construct()
+    use ClientTrait, Traits\ClientHasRedirectTrait {
+        ClientHasRedirectTrait::getRedirectUri insteadof ClientTrait;
+    }
+
+    /**
+     * Allows filling in Entity parameters during construction.
+     */
+    public function __construct($data = [])
     {
+        parent::__construct($data);
         $this->setIdentifier(RandomHelper::generateIdentifier());
         $this->setSecret(RandomHelper::generateToken());
     }

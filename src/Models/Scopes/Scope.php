@@ -18,6 +18,6 @@ class Scope extends \Nip\Records\Record implements ScopeEntityInterface
      */
     public function getIdentifier()
     {
-        // TODO: Implement getIdentifier() method.
+        return $this->getPropertyRaw('identifier');
     }
 }

@@ -11,6 +11,15 @@ namespace ByTIC\Hello\Models\Clients\Traits;
 trait ClientHasRedirectTrait
 {
     /**
+     * @inheritDoc
+     */
+    public function getRedirectUri()
+    {
+        $redirectUri = $this->redirect;
+        return $redirectUri;
+    }
+
+    /**
      * @param $redirect
      * @return string
      */
