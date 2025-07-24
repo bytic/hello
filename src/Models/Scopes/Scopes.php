@@ -21,7 +21,7 @@ class Scopes extends \Nip\Records\RecordManager implements ScopeRepositoryInterf
      */
     public function getScopeEntityByIdentifier($identifier)
     {
-        // TODO: Implement getScopeEntityByIdentifier() method.
+        return $this->findOne($identifier);
     }
 
     /**
