@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Phinx\Migration\AbstractMigration;
 
 /**
@@ -39,7 +41,7 @@ class OauthClientsTable extends AbstractMigration
             ->addColumn('identifier', 'string', ['limit' => 255])
             ->addColumn('name', 'string', [])
             ->addColumn('secret', 'string', ['limit' => 100])
-            ->addColumn('redirect', 'string', [])
+            ->addColumn('redirect_uri', 'string', [])
             ->addColumn('grant_types', 'enum', [
                 'values' => ['authorization_code', 'personal_access', 'password', 'password']
             ])

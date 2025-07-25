@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ByTIC\Hello\Models\RefreshTokens;
 
+use ByTIC\Hello\Models\AbstractBase\Behaviours\HasIdentifier\HasIdentifierRecordsTrait;
 use League\OAuth2\Server\Entities\RefreshTokenEntityInterface;
 use League\OAuth2\Server\Exception\UniqueTokenIdentifierConstraintViolationException;
 use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
@@ -14,6 +17,10 @@ use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
  */
 class RefreshTokens extends \Nip\Records\RecordManager implements RefreshTokenRepositoryInterface
 {
+    use HasIdentifierRecordsTrait;
+
+    public const TABLE = 'oauth_refresh_tokens';
+
     /**
      * Creates a new refresh token
      *
@@ -21,19 +28,18 @@ class RefreshTokens extends \Nip\Records\RecordManager implements RefreshTokenRe
      */
     public function getNewRefreshToken()
     {
-        // TODO: Implement getNewRefreshToken() method.
+        return $this->getNew();
     }
 
     /**
      * Create a new refresh token_name.
      *
      * @param RefreshTokenEntityInterface $refreshTokenEntity
-     *
      * @throws UniqueTokenIdentifierConstraintViolationException
      */
     public function persistNewRefreshToken(RefreshTokenEntityInterface $refreshTokenEntity)
     {
-        // TODO: Implement persistNewRefreshToken() method.
+        $refreshTokenEntity->save();
     }
 
     /**
@@ -43,7 +49,9 @@ class RefreshTokens extends \Nip\Records\RecordManager implements RefreshTokenRe
      */
     public function revokeRefreshToken($tokenId)
     {
-        // TODO: Implement revokeRefreshToken() method.
+        $record = $this->findByIdentifierOrFail($tokenId);
+        $record->setRevoked(false);
+        $record->save();
     }
 
     /**
@@ -55,7 +63,8 @@ class RefreshTokens extends \Nip\Records\RecordManager implements RefreshTokenRe
      */
     public function isRefreshTokenRevoked($tokenId)
     {
-        // TODO: Implement isRefreshTokenRevoked() method.
+        $code = $this->findByIdentifierOrFail($tokenId);
+        return $code->isRevoked();
     }
 
     /** @noinspection PhpMissingParentCallCommonInspection
@@ -63,6 +72,6 @@ class RefreshTokens extends \Nip\Records\RecordManager implements RefreshTokenRe
      */
     protected function generateTable()
     {
-        return 'oauth_refresh_tokens';
+        return self::TABLE;
     }
 }

@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ByTIC\Hello\Models\Clients;
 
 use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
 use Nip\Records\Collections\Collection;
-use Nip\Utility\Traits\SingletonTrait;
 
 /**
  * Class Tokens
@@ -18,7 +19,6 @@ use Nip\Utility\Traits\SingletonTrait;
  */
 class Clients extends \Nip\Records\RecordManager implements ClientRepositoryInterface
 {
-    use SingletonTrait;
 
     /**
      * {@inheritdoc}

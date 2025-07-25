@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ByTIC\Hello\Models\Clients;
 
-use ByTIC\Hello\Models\Clients\Traits\ClientHasRedirectTrait;
+use ByTIC\Hello\Models\AbstractBase\Behaviours\HasRedirectUri\HasRedirectUriRecordTrait;
 use ByTIC\Hello\Utility\RandomHelper;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Entities\Traits\ClientTrait;
@@ -18,8 +20,8 @@ class Client extends \Nip\Records\Record implements ClientEntityInterface
     use Traits\ClientHasGrantsTrait;
     use Traits\ClientHasSecretTrait;
 
-    use ClientTrait, Traits\ClientHasRedirectTrait {
-        ClientHasRedirectTrait::getRedirectUri insteadof ClientTrait;
+    use ClientTrait, HasRedirectUriRecordTrait {
+        HasRedirectUriRecordTrait::getRedirectUri insteadof ClientTrait;
     }
 
     /**

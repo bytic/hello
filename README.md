@@ -10,3 +10,8 @@ Auth Module for bytic framework
 [![Quality Score](https://img.shields.io/scrutinizer/g/bytic/hello.svg?style=flat-square)](https://scrutinizer-ci.com/g/bytic/hello)
 [![StyleCI](https://styleci.io/repos/175367650/shield?branch=master)](https://styleci.io/repos/175367650)
 [![Total Downloads](https://img.shields.io/packagist/dt/bytic/hello.svg?style=flat-square)](https://packagist.org/packages/bytic/hello)
+
+### INSPIRATION
+* https://github.com/rhertogh/yii2-oauth2-server/tree/master
+* https://github.com/bshaffer/oauth2-server-php
+* https://github.com/authbucket/oauth2-php
