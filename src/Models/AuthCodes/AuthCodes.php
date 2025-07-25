@@ -1,10 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ByTIC\Hello\Models\AuthCodes;
 
+use ByTIC\Hello\Models\AbstractBase\Behaviours\HasIdentifier\HasIdentifierRecordsTrait;
+use ByTIC\Hello\Models\AbstractBase\Behaviours\HasOauthClient\HasOauthClientRecordsTrait;
 use League\OAuth2\Server\Entities\AuthCodeEntityInterface;
 use League\OAuth2\Server\Exception\UniqueTokenIdentifierConstraintViolationException;
 use League\OAuth2\Server\Repositories\AuthCodeRepositoryInterface;
+use Nip\Records\RecordManager;
 
 /**
  * Class Tokens
@@ -12,28 +17,30 @@ use League\OAuth2\Server\Repositories\AuthCodeRepositoryInterface;
  *
  * @method AuthCode getNew()
  */
-class AuthCodes extends \Nip\Records\RecordManager implements AuthCodeRepositoryInterface
+class AuthCodes extends RecordManager implements AuthCodeRepositoryInterface
 {
+    use HasOauthClientRecordsTrait;
+    use HasIdentifierRecordsTrait;
+
     /**
      * Creates a new AuthCode
      *
      * @return AuthCodeEntityInterface
      */
-    public function getNewAuthCode()
+    public function getNewAuthCode(): AuthCodeEntityInterface|AuthCode
     {
-        // TODO: Implement getNewAuthCode() method.
+        return $this->getNew();
     }
 
     /**
      * Persists a new auth code to permanent storage.
      *
-     * @param AuthCodeEntityInterface $authCodeEntity
-     *
+     * @param AuthCodeEntityInterface|AuthCode $authCodeEntity
      * @throws UniqueTokenIdentifierConstraintViolationException
      */
     public function persistNewAuthCode(AuthCodeEntityInterface $authCodeEntity)
     {
-        // TODO: Implement persistNewAuthCode() method.
+        $authCodeEntity->save();
     }
 
     /**
@@ -43,7 +50,9 @@ class AuthCodes extends \Nip\Records\RecordManager implements AuthCodeRepository
      */
     public function revokeAuthCode($codeId)
     {
-        // TODO: Implement revokeAuthCode() method.
+        $code = $this->findByIdentifierOrFail($codeId);
+        $code->setRevoked(false);
+        $code->save();
     }
 
     /**
@@ -55,8 +64,10 @@ class AuthCodes extends \Nip\Records\RecordManager implements AuthCodeRepository
      */
     public function isAuthCodeRevoked($codeId)
     {
-        // TODO: Implement isAuthCodeRevoked() method.
+        $code = $this->findByIdentifierOrFail($codeId);
+        return $code->isRevoked();
     }
+
 
     /** @noinspection PhpMissingParentCallCommonInspection
      * @inheritDoc
