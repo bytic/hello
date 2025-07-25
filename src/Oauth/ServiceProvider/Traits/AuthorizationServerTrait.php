@@ -2,7 +2,9 @@
 
 namespace ByTIC\Hello\Oauth\ServiceProvider\Traits;
 
+use ByTIC\Hello\Utility\ConfigHelper;
 use ByTIC\Hello\Utility\ModelsHelper;
+use Defuse\Crypto\Key;
 use League\OAuth2\Server\AuthorizationServer;
 
 /**
@@ -32,12 +34,19 @@ trait AuthorizationServerTrait
      */
     protected function createAuthorizationServer()
     {
+        $encriptionKeyString = ConfigHelper::get('encryption_key');
+        if (empty($encriptionKeyString)) {
+            throw new \RuntimeException('Hello encryption key is not set in the configuration.');
+        }
+
+        $encriptionKey = Key::loadFromAsciiSafeString($encriptionKeyString);
+
         $server = new AuthorizationServer(
             ModelsHelper::clients(),
             ModelsHelper::accessTokens(),
             ModelsHelper::scopes(),
             $this->getContainer()->get('hello.keys.private'),
-            $this->getContainer()->get('hello.keys.public')
+            $encriptionKey
         );
 
         return $server;

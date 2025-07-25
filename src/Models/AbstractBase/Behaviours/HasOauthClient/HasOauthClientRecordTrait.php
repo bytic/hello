@@ -25,7 +25,7 @@ trait HasOauthClientRecordTrait
      */
     public function getClient(): ClientEntityInterface
     {
-        $client = $this->getClientTrait();
+        $client = $this->client;
         if ($client instanceof ClientEntityInterface) {
             return $client;
         }
