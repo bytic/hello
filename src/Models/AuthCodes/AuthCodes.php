@@ -6,6 +6,7 @@ namespace ByTIC\Hello\Models\AuthCodes;
 
 use ByTIC\Hello\Models\AbstractBase\Behaviours\HasIdentifier\HasIdentifierRecordsTrait;
 use ByTIC\Hello\Models\AbstractBase\Behaviours\HasOauthClient\HasOauthClientRecordsTrait;
+use ByTIC\Hello\Models\AbstractToken\AbstractTokens;
 use League\OAuth2\Server\Entities\AuthCodeEntityInterface;
 use League\OAuth2\Server\Exception\UniqueTokenIdentifierConstraintViolationException;
 use League\OAuth2\Server\Repositories\AuthCodeRepositoryInterface;
@@ -17,7 +18,7 @@ use Nip\Records\RecordManager;
  *
  * @method AuthCode getNew()
  */
-class AuthCodes extends RecordManager implements AuthCodeRepositoryInterface
+class AuthCodes extends AbstractTokens implements AuthCodeRepositoryInterface
 {
     use HasOauthClientRecordsTrait;
     use HasIdentifierRecordsTrait;

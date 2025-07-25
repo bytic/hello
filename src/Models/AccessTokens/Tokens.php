@@ -2,6 +2,7 @@
 
 namespace ByTIC\Hello\Models\AccessTokens;
 
+use ByTIC\Hello\Models\AbstractToken\AbstractTokens;
 use ByTIC\Hello\Models\Clients\Client;
 use ByTIC\Hello\Models\Clients\Clients;
 use ByTIC\Hello\Models\Users\Traits\UserTrait;
@@ -20,7 +21,7 @@ use Nip\Records\Collections\Collection;
  *
  * @method Token getNew()
  */
-class Tokens extends \Nip\Records\RecordManager implements AccessTokenRepositoryInterface
+class Tokens extends AbstractTokens implements AccessTokenRepositoryInterface
 {
     /**
      * Create a new access token

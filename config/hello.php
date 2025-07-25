@@ -12,7 +12,6 @@ use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
 use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
 use League\OAuth2\Server\Repositories\ScopeRepositoryInterface;
 use League\OAuth2\Server\Repositories\UserRepositoryInterface;
-use function storage_path;
 
 return [
     /*
@@ -24,7 +23,7 @@ return [
     | oauth service are.
     |
     */
-    'encryption_key' => env('OAUTH_AUTHORIZATION_KEY', storage_path('oauth')),
+    'encryption_key' => env('OAUTH_AUTHORIZATION_KEY', false),
     'key_path' => env('OAUTH_KEYS_PATH', storage_path('oauth')),
 
     /*

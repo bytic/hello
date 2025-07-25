@@ -2,9 +2,7 @@
 
 namespace ByTIC\Hello\Oauth\ServiceProvider\Traits;
 
-use ByTIC\Hello\Utility\ConfigHelper;
 use ByTIC\Hello\Utility\CryptHelper;
-use League\OAuth2\Server\CryptKey;
 
 /**
  * Trait CryptKeysTrait
