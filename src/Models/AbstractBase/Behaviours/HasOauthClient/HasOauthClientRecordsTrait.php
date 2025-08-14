@@ -29,6 +29,7 @@ trait HasOauthClientRecordsTrait
             [
                 'class' => get_class(ModelsHelper::clients()),
                 'fk' => 'client_id',
+                'withPK' => 'identifier',
             ],
         );
     }

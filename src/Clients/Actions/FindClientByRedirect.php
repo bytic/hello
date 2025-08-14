@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ByTIC\Hello\Clients\Actions;
 
 use Bytic\Actions\Action;
-use Bytic\Actions\Behaviours\Entities\FindRecord;
+use Bytic\Actions\Behaviours\Entities\FindRecords;
 use Bytic\Actions\Behaviours\HasSubject\HasSubject;
 use ByTIC\Hello\Utility\ModelsHelper;
 use Nip\Records\AbstractModels\RecordManager;
@@ -16,12 +16,14 @@ use Nip\Records\AbstractModels\RecordManager;
 class FindClientByRedirect extends Action
 {
     use HasSubject;
-    use FindRecord;
+    use FindRecords;
 
     protected function findParams(): array
     {
         return [
-            ['where' => ["`redirect_uri` LIKE '%?%", $this->getSubject()]],
+            'where' => [
+                ['`redirect_uri` LIKE ?', '%'.$this->getSubject().'%']
+            ]
         ];
     }
 
