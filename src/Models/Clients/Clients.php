@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ByTIC\Hello\Models\Clients;
 
+use ByTIC\Hello\Clients\Actions\FindClientByRedirect;
 use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
 use Nip\Records\Collections\Collection;
 
@@ -15,7 +16,6 @@ use Nip\Records\Collections\Collection;
  * @method Client findOneByIdentifier(string $clientIdentifier)
  * @method Client findOne(string $clientIdentifier)
  *
- * @method Client[]|Collection findByRedirect(string $uri)
  */
 class Clients extends \Nip\Records\RecordManager implements ClientRepositoryInterface
 {
@@ -35,6 +35,11 @@ class Clients extends \Nip\Records\RecordManager implements ClientRepositoryInte
 //            return;
 //        }
         return $client;
+    }
+
+    public function findByRedirect(string $uri)
+    {
+        return FindClientByRedirect::for($uri)->fetch();
     }
 
     /** @noinspection PhpMissingParentCallCommonInspection

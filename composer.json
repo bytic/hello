@@ -24,6 +24,7 @@
   "require": {
     "ext-json": "*",
     "bytic/package-base": "^1.0",
+    "bytic/actions": "^1.0|^2.0|dev-main",
     "bytic/auth": "^0.9|^1.0",
     "bytic/translation": "^0.9|^1.0",
     "bytic/router": "^0.9|^1.0",
