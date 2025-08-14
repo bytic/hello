@@ -2,6 +2,7 @@
 
 namespace ByTIC\Hello\Models\Clients\PersonalAccess;
 
+use ByTIC\Hello\Clients\Actions\FindClientByRedirect;
 use ByTIC\Hello\Models\Clients\Client;
 use ByTIC\Hello\Utility\ClientsHelper;
 use ByTIC\Hello\Utility\GrantsHelper;
@@ -31,8 +32,8 @@ class ClientsManager
                 return $client;
             }
         }
-        $clients = ModelsHelper::clients()->findByRedirect(ClientsHelper::PERSONAL_ACCESS_REDIRECT_URI);
-        if (count($clients) === 1) {
+        $clients = FindClientByRedirect::for(ClientsHelper::PERSONAL_ACCESS_REDIRECT_URI)->fetch();
+        if ($clients && $clients->count() == 1) {
             static::$client = $clients->current();
             return $clients->current();
         }

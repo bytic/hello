@@ -45,6 +45,8 @@ trait LoginControllerTrait
     {
         $jwt = $this->getRequest()->get('token');
         $this->_getUser()->getManager()->authenticateWithToken($jwt);
+
+        $this->doSuccessRedirect();
     }
 
     /**

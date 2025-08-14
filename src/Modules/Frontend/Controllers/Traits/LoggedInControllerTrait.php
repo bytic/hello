@@ -14,5 +14,9 @@ trait LoggedInControllerTrait
 
     public function index()
     {
+        $this->payload()->with(
+            [
+                'redirect' => $this->getAuthenticationValue('redirect', ''),
+            ]);
     }
 }
