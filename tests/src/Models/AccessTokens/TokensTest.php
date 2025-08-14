@@ -62,16 +62,16 @@ class TokensTest extends AbstractTest
     public function test_getQueryModelData()
     {
         $data = [
-            'id' => null,
-            'identifier' => null,
+            'id' => '',
+            'identifier' => '',
             'user_id' => 9,
-            'client_id' => null,
-            'name' => null,
+            'client_id' => '',
+            'name' => '',
             'scopes' => '',
-            'revoked' => null,
-            'expires_at' => null,
-            'created' => null,
-            'updated' => null
+            'revoked' => '',
+            'expires_at' => '',
+            'created' => '',
+            'updated' => ''
         ];
         /** @var Mock|Tokens $manager */
         $manager = \Mockery::mock(Tokens::class)->makePartial();

@@ -35,7 +35,7 @@ trait HasOauthClientRecordTrait
         return $relationClient;
     }
 
-    public function setClientId(string $clientId): void
+    public function setClientId(?string $clientId): void
     {
         $this->client_id = $clientId;
         $client = $this->getClientRecord();
@@ -52,6 +52,7 @@ trait HasOauthClientRecordTrait
     public function setClient(ClientEntityInterface $client)
     {
         $this->client_id = $client->id;
+        $this->getRelation('ClientRecord')->setResults($client);
         $this->client = $client;
     }
 }
