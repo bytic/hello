@@ -65,30 +65,43 @@ trait OAuthControllerTrait
             Session::set('oauth_provider', $providerName);
         }
 
-        $sessionProvider = Session::get('oauth_provider');
-        if (!$sessionProvider) {
+        $providerName = Session::get('oauth_provider');
+        if (!$providerName) {
             $this->redirect($this->Url()->assemble('frontend.login'));
         }
 
         $userProfile = Hybridauth::instance()->authenticate($providerName);
 
+        $this->getView()->setBlock('content', 'oauth/with');
         if ($userProfile instanceof Exception) {
             $this->payload()->set('exception', $userProfile);
-        } else {
-            $userExist = ModelLocator::get('users-logins')->getUserByProvider($providerName, $userProfile->identifier);
+            return;
+        }
 
-            if (!$userExist) {
-                $this->redirect($this->Url()->assemble(
+        if (empty($userProfile->email)) {
+            $this->payload()->set('exception', new Exception('No email provided by OAuth provider'));
+            return;
+        }
+        if (empty($userProfile->identifier)) {
+            $this->payload()->set('exception', new Exception('No identifier provided by OAuth provider'));
+            return;
+        }
+
+        $userExist = ModelLocator::get('users-logins')->getUserByProvider($providerName, $userProfile->identifier);
+
+        if (!$userExist) {
+            $this->redirect(
+                $this->Url()->assemble(
                     'frontend.o_auth.link',
                     [
                         'provider' => $providerName,
                         'redirect' => $this->getRedirectURL(),
                     ]
-                ));
-            }
-
-            $userExist->doAuthentication();
-            $this->doSuccessRedirect();
+                )
+            );
         }
+
+        $userExist->doAuthentication();
+        $this->doSuccessRedirect();
     }
 }
