@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ByTIC\Hello\Modules\Frontend\Controllers\Traits;
 
 use ByTIC\Hello\Models\Users\Logins\Traits\LoginTrait;
@@ -7,6 +9,7 @@ use Exception;
 use ByTIC\Hello\Library\Hybridauth\Hybridauth;
 use Nip\Controllers\Traits\AbstractControllerTrait;
 use Nip\Records\Locator\ModelLocator;
+use Nip\Session\Utility\Session;
 
 /**
  * Trait OAuthControllerTrait
@@ -16,9 +19,19 @@ trait OAuthControllerTrait
 {
     use AbstractControllerTrait;
 
+    public function index()
+    {
+        $this->tryHybridauthAuthenticate();
+    }
+
+    public function with()
+    {
+        $this->tryHybridauthAuthenticate();
+    }
+
     public function link()
     {
-        $providerName = $_REQUEST["provider"];
+        $providerName = $this->getRequest()->get('provider');
         $userProfile = Hybridauth::instance()->authenticate($providerName);
 
         $user = $this->_getUser();
@@ -44,9 +57,19 @@ trait OAuthControllerTrait
         $this->_setMeta('login');
     }
 
-    public function with()
+
+    protected function tryHybridauthAuthenticate()
     {
         $providerName = $this->getRequest()->get('provider');
+        if ($providerName) {
+            Session::set('oauth_provider', $providerName);
+        }
+
+        $sessionProvider = Session::get('oauth_provider');
+        if (!$sessionProvider) {
+            $this->redirect($this->Url()->assemble('frontend.login'));
+        }
+
         $userProfile = Hybridauth::instance()->authenticate($providerName);
 
         if ($userProfile instanceof Exception) {
