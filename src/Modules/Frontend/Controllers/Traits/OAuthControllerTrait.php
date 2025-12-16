@@ -4,7 +4,6 @@ namespace ByTIC\Hello\Modules\Frontend\Controllers\Traits;
 
 use ByTIC\Hello\Models\Users\Logins\Traits\LoginTrait;
 use Exception;
-use Hybrid_Endpoint;
 use ByTIC\Hello\Library\Hybridauth\Hybridauth;
 use Nip\Controllers\Traits\AbstractControllerTrait;
 use Nip\Records\Locator\ModelLocator;
@@ -17,32 +16,25 @@ trait OAuthControllerTrait
 {
     use AbstractControllerTrait;
 
-    /**
-     * @return Hybrid_Endpoint
-     */
-    public function index()
-    {
-        return Hybrid_Endpoint::process();
-    }
-
     public function link()
     {
         $providerName = $_REQUEST["provider"];
         $userProfile = Hybridauth::instance()->authenticate($providerName);
 
-        $this->_getUser()->first_name = $userProfile->firstName;
-        $this->_getUser()->last_name = $userProfile->lastName;
-        $this->_getUser()->email = $userProfile->email;
+        $user = $this->_getUser();
+        $user->first_name = $userProfile->firstName;
+        $user->last_name = $userProfile->lastName;
+        $user->email = $userProfile->email;
 
-        $this->getView()->set('headerTitle', ModelLocator::get('users')->getLabel('o_auth_link.title'));
+        $this->payload()->set('headerTitle', ModelLocator::get('users')->getLabel('o_auth_link.title'));
 
         foreach (['login', 'register'] as $userAction) {
-            $form = $this->_getUser()->getForm($userAction);
+            $form = $user->getForm($userAction);
 
             if ($form->execute()) {
                 /** @var LoginTrait $userLogin */
                 ModelLocator::get('users-logins')
-                    ->createForProvider($providerName, $this->_getUser(), $userProfile);
+                    ->createForProvider($providerName, $user, $userProfile);
 
                 $this->doSuccessRedirect($userAction);
             }
@@ -58,7 +50,7 @@ trait OAuthControllerTrait
         $userProfile = Hybridauth::instance()->authenticate($providerName);
 
         if ($userProfile instanceof Exception) {
-            $this->getView()->set('exception', $userProfile);
+            $this->payload()->set('exception', $userProfile);
         } else {
             $userExist = ModelLocator::get('users-logins')->getUserByProvider($providerName, $userProfile->identifier);
 

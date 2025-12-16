@@ -13,10 +13,7 @@
   "autoload": {
     "psr-4": {
       "ByTIC\\Hello\\": "src"
-    },
-    "classmap": [
-      "src/Library/Form"
-    ]
+    }
   },
   "autoload-dev": {
     "psr-4": {
@@ -35,15 +32,15 @@
     "bytic/view": "^1.0|^2.0",
     "bytic/google-recaptcha": "^1.0|^2.0",
     "hybridauth/hybridauth": "^v2.12|~3.0",
-    "firebase/php-jwt": "~4.0|~5.0|~6.0",
-    "league/oauth2-server": "^8.0",
+    "firebase/php-jwt": "~5.0|~6.0|~7.0",
+    "league/oauth2-server": "^8.0|^9.0",
     "phpseclib/phpseclib": "^2.0|^3.0",
-    "symfony/psr-http-message-bridge": "^1.0|^2.0",
+    "symfony/psr-http-message-bridge": "^1.0|^2.0|^6.0|^7.0",
     "laminas/laminas-diactoros": "^2.3|^3.0"
   },
   "require-dev": {
     "bytic/migrations": "^0.12|^0.13",
-    "bytic/phpqatools": "^1.0.19"
+    "bytic/phpqatools": "^1.0"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
