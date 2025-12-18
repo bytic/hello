@@ -1,7 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
+
 echo $this->Messages()->info(
     \Nip\Records\Locator\ModelLocator::get('users')->getMessage('o_auth_link', ['provider' => $_GET['provider']])
-); ?>
+);
+?>
 
 <div id="signup">
     <div class="card card-default">

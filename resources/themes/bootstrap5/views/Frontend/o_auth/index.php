@@ -1,0 +1,1 @@
+<?= $this->load('/o_auth/with'); ?>
