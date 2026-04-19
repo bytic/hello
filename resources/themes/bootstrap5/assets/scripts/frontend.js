@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        var input = wrapper.querySelector('input[type="password"], input[type="text"]');
+        var input = wrapper.querySelector('input[name="password"]') || wrapper.querySelector('input');
         if (!input) {
             return;
         }

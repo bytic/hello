@@ -1,4 +1,6 @@
 
+$login-password-toggle-space: 5.5rem;
+
 body {
   color: #4b5563;
   background: linear-gradient(145deg, #eaf2ff 0%, #f8fafc 45%, #eef2ff 100%);
@@ -37,7 +39,7 @@ form.user-login .message-error {
 
 .login-password-field input[type="password"],
 .login-password-field input[type="text"] {
-  padding-right: 5.5rem;
+  padding-right: $login-password-toggle-space;
 }
 
 .btn-password-toggle {
