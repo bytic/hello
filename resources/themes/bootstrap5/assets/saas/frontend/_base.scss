@@ -23,20 +23,20 @@ form.user-login .message-error {
   padding: 32px;
 }
 
-.hello-auth-card {
+.login-auth-card {
   border-radius: 16px;
 }
 
-.hello-auth-card .card-body {
+.login-auth-card .card-body {
   padding: 2rem;
 }
 
-.hello-password-field {
+.login-password-field {
   position: relative;
 }
 
-.hello-password-field input[type="password"],
-.hello-password-field input[type="text"] {
+.login-password-field input[type="password"],
+.login-password-field input[type="text"] {
   padding-right: 5.5rem;
 }
 

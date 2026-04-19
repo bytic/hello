@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     toggleButtons.forEach(function (button) {
-        var wrapper = button.closest('.hello-password-field');
+        var wrapper = button.closest('.login-password-field');
         if (!wrapper) {
             return;
         }

@@ -14,7 +14,7 @@ $renderer = $form->getRenderer();
         </a>
     </div>
     <?= $renderer->renderLabel($passwordElement); ?>
-    <div class="hello-password-field">
+    <div class="login-password-field">
         <?= $renderer->renderElement($passwordElement); ?>
         <button
                 type="button"
