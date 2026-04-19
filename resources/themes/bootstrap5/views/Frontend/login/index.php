@@ -1,10 +1,5 @@
-<div id="auth-form-container">
-    <style type="text/css">
-        form.user-login .message-error {
-            display: none;
-        }
-    </style>
-    <div class="card card-default">
+<div id="auth-form-container" class="hello-auth-form-container">
+    <div class="card card-default hello-auth-card border-0 shadow-sm">
         <div class="card-body">
             <?= $this->load('modules/form'); ?>
             <?= $this->load('modules/social'); ?>

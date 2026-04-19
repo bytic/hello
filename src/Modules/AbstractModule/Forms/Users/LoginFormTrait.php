@@ -17,9 +17,15 @@ trait LoginFormTrait
 
         $this->addInput('email', translator()->trans('email'), true)
             ->addPassword('password', translator()->trans('password'), true);
+        $this->getElement('email')
+            ->setAttrib('autocomplete', 'email')
+            ->setAttrib('autocapitalize', 'off')
+            ->setAttrib('spellcheck', 'false');
+        $this->getElement('password')
+            ->setAttrib('autocomplete', 'current-password');
 
         $this->addButton('save', translator()->trans('signin'));
-        $this->getButton('save')->addClass('pull-right');
+        $this->getButton('save')->addClass('pull-right')->addClass('float-end');
     }
 
     public function processValidation()

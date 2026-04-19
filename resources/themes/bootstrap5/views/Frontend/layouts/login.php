@@ -5,9 +5,9 @@
 <?= $this->load('/modules/header-body'); ?>
 <?= $this->load('HelloFrontend::/modules/header'); ?>
 
-<div class="container">
+<div class="container py-4 py-md-5">
     <div class="row justify-content-center">
-        <div class="col col-lg-6 col-md-7" >
+        <div class="col-12 col-md-8 col-lg-5 col-xl-4">
             <?= $this->render("content"); ?>
         </div>
     </div>

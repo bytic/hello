@@ -8,16 +8,28 @@ $renderer = $form->getRenderer();
 <?= $renderer->renderRow($form->getElement('email')); ?>
 <?php $passwordElement = $form->getElement('password'); ?>
 <div class="form-group row-password">
-    <a href="<?= $this->Url()->assemble('frontend.recover', $this->authenticationVariables); ?>" class="btn btn-link btn-xs pull-right"
-       style="margin-top: -4px">
-        <?= \Nip\Records\Locator\ModelLocator::get('users')->getLabel('recoverPassword.question'); ?>
-    </a>
+    <div class="d-flex justify-content-end mb-1">
+        <a href="<?= $this->Url()->assemble('frontend.recover', $this->authenticationVariables); ?>" class="btn btn-link btn-sm p-0">
+            <?= \Nip\Records\Locator\ModelLocator::get('users')->getLabel('recoverPassword.question'); ?>
+        </a>
+    </div>
     <?= $renderer->renderLabel($passwordElement); ?>
-    <?= $renderer->renderElement($passwordElement); ?>
+    <div class="hello-password-field">
+        <?= $renderer->renderElement($passwordElement); ?>
+        <button
+                type="button"
+                class="btn btn-outline-secondary btn-password-toggle"
+                data-password-toggle="true"
+                aria-label="Show password"
+                aria-pressed="false">
+            <span class="show-label">Show</span>
+            <span class="hide-label d-none">Hide</span>
+        </button>
+    </div>
 </div>
 <div class="form-group">
-    <div class="">
-        <a href="<?= $this->Url()->assemble('frontend.register', $this->authenticationVariables); ?>" class="btn btn-link">
+    <div class="d-flex align-items-center justify-content-between gap-2 flex-wrap">
+        <a href="<?= $this->Url()->assemble('frontend.register', $this->authenticationVariables); ?>" class="btn btn-link p-0">
             <?= \Nip\Records\Locator\ModelLocator::get('users')->getLabel('register'); ?>
         </a>
         <?php $buttons = $form->getButtons(); ?>
