@@ -1,4 +1,6 @@
 
+$header-title-color: #1e3a8a;
+
 #header {
   padding: 28px 0 16px;
   text-align: center;
@@ -13,7 +15,7 @@
 }
 
 #header .title {
-  color: #1e3a8a;
+  color: $header-title-color;
   font-size: 1.4rem;
   font-weight: 600;
   line-height: 28px;

@@ -1,9 +1,12 @@
 
 $login-password-toggle-space: 5.5rem;
+$login-bg-gradient-start: #eaf2ff;
+$login-bg-gradient-middle: #f8fafc;
+$login-bg-gradient-end: #eef2ff;
 
 body {
   color: #4b5563;
-  background: linear-gradient(145deg, #eaf2ff 0%, #f8fafc 45%, #eef2ff 100%);
+  background: linear-gradient(145deg, $login-bg-gradient-start 0%, $login-bg-gradient-middle 45%, $login-bg-gradient-end 100%);
   min-height: 100vh;
 }
 
