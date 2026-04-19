@@ -4,7 +4,6 @@ $form = $this->forms['login'];
 $renderer = $form->getRenderer();
 $showPasswordLabel = translator()->trans('show');
 $hidePasswordLabel = translator()->trans('hide');
-$passwordLabel = translator()->trans('password');
 ?>
 <?= $renderer->openTag(); ?>
 <?= $renderer->renderHidden(); ?>
@@ -23,7 +22,7 @@ $passwordLabel = translator()->trans('password');
                 type="button"
                 class="btn btn-outline-secondary btn-password-toggle"
                 data-password-toggle="true"
-                aria-label="<?= $showPasswordLabel . ' ' . $passwordLabel; ?>"
+                aria-label="<?= $showPasswordLabel; ?>"
                 aria-pressed="false">
             <span class="show-label"><?= $showPasswordLabel; ?></span>
             <span class="hide-label d-none"><?= $hidePasswordLabel; ?></span>
